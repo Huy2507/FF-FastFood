@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/style.css")
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @Scripts.Render("~/Content/myScript.js")
+    <script src="https://kit.fontawesome.com/f02f65c258.js" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md bg-info my-nav">
+            <div id="div_container" class="container-fluid bg-light my-nb">
+                <img src="~/images/logo.png" class="d-flex:float-lg-start my-logo ms-4" alt="">
+                <button class="navbar-toggler my-toggler-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="navbarNav" aria aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <p Class="FF_name m-0 fw-bold">FF FastFood</p>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav row p-0 my-row-1-1 fw-bold my-row">
+                        <li class="nav-item m-2 col-sm-2 p-0">
+                            <a href="" class="nav-link p-0">THỰC ĐƠN</a>
+                        </li>
+                        <li class="nav-item m-2 col-sm-2 p-0">
+                            <a href="" class="nav-link p-0">KHUYẾN MÃI</a>
+                        </li>
+                        <li class="nav-item m-2 col-sm-2 p-0">
+                            <a href="" class="nav-link p-0">CÁI GÌ ĐÓ</a>
+                        </li>
+                        <li class="nav-item m-2 col-sm-2 p-0">
+                            <a href="" class="nav-link p-0">CHƯA BIẾT</a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="div_icon">
+                    <a class="text-decoration-none fs-3 icon-1 me-5 " href="@Url.Action("Index", "Home")">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+
+                    <a class="text-decoration-none fs-3 icon-1" href="@Url.Action("Index", "Home")">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+    <footer>
+        <div class="container-fluid ps-5 pe-5 pt-5 pb-0 footer1">
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <div class="ftLogo">
+                        <a href="index.html"><img src="~/images/logo.png" alt="" class="logo-footer me-2"></a>
+                        <div class="footer-about">
+                            <p class="gt_footer">Chúng tôi tự hào khi có thể mang đến cho mọi người nhiều loại đồ ăn nhanh ngon tuyệt vời số 1 Việt Nam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="useful-link footer_content">
+                        <h2>Useful Links</h2>
+                        <img src="./assets/images/about/home_line.png" alt="" class="img-fluid">
+                        <div class="use-links">
+                            <li><a href="index.html"><i class="fa fa-angle-double-right"></i> Home</a></li>
+                            <li><a href="about.html"><i class="fa fa-angle-double-right"></i> About Us</a></li>
+                            <li><a href="gallery.html"><i class="fa fa-angle-double-right"></i> Gallery</a></li>
+                            <li><a href="contact.html"><i class="fa fa-angle-double-right"></i> Contact</a></li>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="social-links footer_content">
+                        <h2>Follow Us</h2>
+                        <img src="./assets/images/about/home_line.png" alt="">
+                        <div class="social-icons">
+                            <li><a href=""><i class="fa fa-facebook-f"></i> Facebook</a></li>
+                            <li><a href=""><i class="fa fa-lo fa-instagram"></i> Instagram</a></li>
+                            <li><a href=""><i class="fa fa-linkedin"></i> Linkedin</a></li>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="address footer_content">
+                        <h2>Address</h2>
+                        <img src="./assets/images/about/home_line.png" alt="" class="img-fluid">
+                        <div class="address-links">
+                            <li class="address1"><i class="fa fa-location-dot"></i> Điện Biên Phủ, Phường 15, Bình Thạnh, Thành phố Hồ Chí Minh</li>
+                            <li><a href=""><i class="fa fa-phone"></i> 84 838780712</a></li>
+                            <li><a href=""><i class="fa fa-envelope"></i> mail@1234567.com</a></li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

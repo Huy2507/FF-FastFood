@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="327c69afe0ba4f49bc62af039b51b9f6" Name="Diagram1">
+        <EntityTypeShape EntityType="FF_FastFoodModel.Account" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Category" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Customer" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Deliverer" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Delivery" Width="1.5" PointX="7.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Employee" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Food" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Order_Items" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Order" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Payment" Width="1.5" PointX="7.5" PointY="12.875" IsExpanded="true" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Customers__accou__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Deliverer__accou__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Employees__accou__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Foods__category___4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Orders__customer__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Deliverie__deliv__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Deliverie__order__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Order_Ite__food___5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Order_Ite__order__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="FF_FastFoodModel.FK__Payments__order___59063A47" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
