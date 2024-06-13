@@ -18,6 +18,7 @@ namespace FF_Fastfood.Models
         public Customer()
         {
             this.Orders = new HashSet<Order>();
+            this.Carts = new HashSet<Cart>();
         }
     
         public int customer_id { get; set; }
@@ -27,9 +28,12 @@ namespace FF_Fastfood.Models
         public string address { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
         public Nullable<System.DateTime> updated_at { get; set; }
+        public string email { get; set; }
     
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

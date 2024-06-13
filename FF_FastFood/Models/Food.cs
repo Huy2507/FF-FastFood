@@ -18,6 +18,7 @@ namespace FF_Fastfood.Models
         public Food()
         {
             this.Order_Items = new HashSet<Order_Items>();
+            this.Cart_Items = new HashSet<Cart_Items>();
         }
     
         public int food_id { get; set; }
@@ -36,5 +37,7 @@ namespace FF_Fastfood.Models
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Items> Order_Items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart_Items> Cart_Items { get; set; }
     }
 }

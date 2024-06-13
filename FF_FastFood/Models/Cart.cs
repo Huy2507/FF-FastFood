@@ -12,26 +12,21 @@ namespace FF_Fastfood.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Deliverer
+    public partial class Cart
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Deliverer()
+        public Cart()
         {
-            this.Deliveries = new HashSet<Delivery>();
+            this.Cart_Items = new HashSet<Cart_Items>();
         }
     
-        public int deliverer_id { get; set; }
-        public Nullable<int> account_id { get; set; }
-        public string name { get; set; }
-        public string phone { get; set; }
-        public string vehicle_info { get; set; }
-        public string status { get; set; }
+        public int cart_id { get; set; }
+        public Nullable<int> customer_id { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
         public Nullable<System.DateTime> updated_at { get; set; }
-        public string email { get; set; }
     
-        public virtual Account Account { get; set; }
+        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Delivery> Deliveries { get; set; }
+        public virtual ICollection<Cart_Items> Cart_Items { get; set; }
     }
 }

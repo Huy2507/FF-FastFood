@@ -26,8 +26,11 @@ namespace FF_Fastfood.Models
         public string username { get; set; }
         public string password { get; set; }
         public string role { get; set; }
+        public string email { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
         public Nullable<System.DateTime> updated_at { get; set; }
+        public string PasswordResetCode { get; set; }
+        public Nullable<System.DateTime> ResetCodeExpiration { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }

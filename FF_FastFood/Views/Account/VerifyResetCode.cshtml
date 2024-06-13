@@ -1,0 +1,37 @@
+﻿@model FF_Fastfood.Models.VerifyResetCodeViewModel
+
+@{
+    ViewBag.Title = "Xác nhận mã";
+}
+
+
+<div class="container-fluid login-form">
+    <div class="row">
+        <div class="col-md-6 textfield-login">
+            @using (Html.BeginForm("VerifyResetCode", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Email)
+                <h1 class="mb-5">XÁC NHẬN MÃ</h1>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.ResetCode, new { @class = "col-12 mb-2 w-100 input-login", placeholder = "", required = "required" })
+                    @Html.LabelFor(m => m.ResetCode, new { @class = "input-label" })
+                    @Html.ValidationMessageFor(m => m.ResetCode, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger p-0" })
+                </div>
+                <div class="btn-login mb-3">
+                    <button type="submit" name="submit" class="btn m-0" value="Login">Xác nhận </button>
+                </div>
+            }
+        </div>
+            <div class="col-md-6 p-0 position-relative imgfield-login d-none d-md-flex">
+                <img class="img-fluid full-width-image" src="~/images/login.jpg" alt="Alternate Text" />
+                <div class="overlay-login">
+                    <h3 class="overlay-login-text text-sha">NHẬP MÃ XÁC NHẬN ĐỂ CHUYỂN ĐẾN BƯỚC TIẾP THEO !</h3>
+                </div>
+            </div>
+    </div>
+</div>
+

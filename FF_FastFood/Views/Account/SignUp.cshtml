@@ -1,0 +1,66 @@
+﻿@model FF_Fastfood.Models.RegisterViewModel
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<div class="container-fluid login-form">
+    <div class="row">
+        <div class="col-md-6 p-0 position-relative imgfield-login d-none d-md-flex">
+            <img class="img-fluid full-width-image" src="~/images/login.jpg" alt="Alternate Text" />
+            <div class="overlay-login">
+                <h3 class="overlay-login-text text-sha">ĐĂNG KÝ NGAY ĐỂ ĐẶT NHỮNG MÓN ĂN NGON !</h3>
+            </div>
+        </div>
+        <div class="col-md-6 textfield-login">
+            @using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <h1 class="mb-3">ĐĂNG KÝ</h1>
+                if (ViewData.ModelState.ContainsKey("") && ViewData.ModelState[""].Errors.Count > 0)
+                {
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i> @ViewData.ModelState[""].Errors[0].ErrorMessage
+                    </div>
+                }
+                <div class="form-group">
+                    <input class="col-12 mb-2 w-100 input-login" type="number" name="username" id="username" placeholder=" " required>
+                    <label for="username" class="input-label">Tên tài khoản</label>
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input class="col-12 mb-2 w-100 input-login" type="text" name="name" id="name" placeholder=" " required>
+                    <label for="name" class="input-label">Tên của bạn</label>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input class="col-12 mb-2 w-100 input-login" type="text" name="email" id="email" placeholder=" " required>
+                    <label for="email" class="input-label">Email</label>
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input class="col-12 mb-2 w-100 input-login" type="password" name="password" id="password" placeholder=" " required>
+                    <label for="password" class="input-label">Mật khẩu</label>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input class="col-12 mb-2 w-100 input-login" type="password" name="confirmpassword" id="password" placeholder=" " required>
+                    <label for="password" class="input-label">Nhập lại mật khẩu</label>
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input class="col-12 mb-2 w-100 input-login" type="text" name="address" id="address" placeholder=" " required>
+                    <label for="address" class="input-label">Nhập địa chỉ của bạn</label>
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="btn-login mb-3">
+                    <button type="submit" class="btn m-0">Tạo Tài Khoản</button>
+                </div>
+                <div class="d-flex">
+                    <p>Bạn đã có tài khoản ?</p>
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-link p-0 ms-2">Đăng nhập</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

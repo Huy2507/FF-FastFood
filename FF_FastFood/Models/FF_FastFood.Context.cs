@@ -35,5 +35,7 @@ namespace FF_Fastfood.Models
         public virtual DbSet<Order_Items> Order_Items { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Cart_Items> Cart_Items { get; set; }
     }
 }

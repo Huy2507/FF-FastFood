@@ -4,62 +4,41 @@
     ViewBag.Title = "Log in";
 }
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+<div class="container-fluid login-form">
     <div class="row">
-        <div class="col-md-8">
-            <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>Use a local account to log in.</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="row">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-md-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-md-2 col-md-10">
-                            <input type="submit" value="Log in" class="btn btn-outline-dark" />
-                        </div>
-                    </div>
-                    <p>
-                        @Html.ActionLink("Register as a new user", "Register")
-                    </p>
-                    @* Enable this once you have account confirmation enabled for password reset functionality
-                        <p>
-                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                        </p>*@
-                }
-            </section>
+        <div class="col-md-6 textfield-login">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <h1 class="mb-5">ĐĂNG NHẬP</h1>
+                <div class="form-group">
+                    <input class="col-12 mb-2 w-100 input-login" type="text" name="username" id="username" placeholder=" " required>
+                    <label for="username" class="input-label">Số điện thoại</label>
+                </div>
+                <div class="form-group">
+                    <input class="col-12 mb-2 w-100 input-login" type="password" name="password" id="password" placeholder=" " required>
+                    <label for="password" class="input-label">Mật khẩu</label>
+                </div>
+                <div class="d-flex">
+                    <a href="@Url.Action("ForgotPassword", "Account")" class="btn btn-link p-0 mb-4">Quên mật khẩu ?</a>
+                </div>
+                <div>
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger p-0" })
+                </div>
+                <div class="btn-login mb-3">
+                    <button type="submit" name="submit" class="btn m-0" value="Login">Đăng nhập</button>
+                </div>
+                <div class="d-flex">
+                    <p>Bạn chưa có tài khoản ?</p>
+                    <a href="@Url.Action("SignUp", "Account")" class="btn btn-link p-0 ms-2">Đăng ký</a>
+                </div>
+            }
+        </div> 
+            <div class="col-md-6 p-0 position-relative imgfield-login d-none d-md-flex">
+                <img class="img-fluid full-width-image" src="~/images/login.jpg" alt="Alternate Text" />
+                <div class="overlay-login">
+                    <h3 class="overlay-login-text text-sha">ĐĂNG NHẬP NGAY ĐỂ ĐẶT NHỮNG MÓN ĂN NGON !</h3>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>
-    </div>
-</main>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</div>

@@ -1,5 +1,7 @@
-﻿@media only screen and (max-with: 575px) {
-
+﻿@media only screen and (max-width: 575px) {
+    .icon-1{
+        margin:10px !important;
+    }
 }
 @media only screen and (max-width: 767px) {
     .my-toggler-btn {
@@ -7,12 +9,16 @@
         padding: 0;
     }
 
-    .navbar-collapse {
-        flex-direction: column;
-    }
-
     .navbar-toggler-icon {
         height: 25px;
+    }
+
+    .navbar-nav li {
+        justify-content: start !important;
+    }
+
+    .navbar-nav.nav1 li {
+        justify-content: center !important;
     }
 
     .my-logo {
@@ -22,8 +28,19 @@
     .FF_name {
         display: flex !important;
     }
+
+    .a-navbar{
+        text-align: start !important;
+    }
+
+    /* Food */
+
+    #category-nav{
+        top: 36px !important;
+    }
     /* Footer */
-    .ftLogo{
+
+    .ftLogo {
         display: flex !important;
         align-items: center !important;
     }
@@ -41,6 +58,13 @@
     }
 }
 
+@media only screen and (min-width: 576px) {
+    
+}
+
+.container{
+    max-width:none !important;
+}
 /* Header */
 .my-nav {
     position: fixed;
@@ -50,14 +74,10 @@
 }
 
 .my-nb {
-    box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.5);
+    border-block: 1px solid;
     color: #4c7744;
     font-size: 16px;
     margin: auto;
-}
-
-.my-nb-bg-color {
-    background-color: #0B6B03 !important;
 }
 
 ul {
@@ -75,7 +95,7 @@ li {
     justify-self: flex-start !important;
 }
 
-.FF_name{
+.FF_name {
     display: none;
     font-size: 24px;
 }
@@ -84,50 +104,58 @@ li {
     justify-self: end !important;
 }
 
-.collapse.navbar-collapse {
-    height: 50px !important;
+.nav-item{
+    cursor:pointer;
 }
 
-.my-row {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    display: flex; /* Sử dụng Flexbox */
-    justify-content: start; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
-}
-
-.my-row li {
+.navbar-nav li {
     position: relative;
     padding: 10px 0;
     height: 100%;
+    
     display: flex; /* Sử dụng Flexbox */
     justify-content: center; /* Căn giữa nội dung theo chiều ngang */
     align-items: center; /* Căn giữa nội dung theo chiều dọc */
 }
+    
+.navbar-nav li a {
+    color: #4c7744 !important;
+    text-align: center;
+}
 
-.my-row li:hover{
+.navbar-nav {
+    flex-wrap: unset !important;
+    align-items: self-start !important;
+    margin: 0px !important;
+}
+
+.navbar-nav li:hover {
     background-color: rgba(128, 128, 128, 0.2);
 }
-.my-row li:hover::after {
+        
+.navbar-nav li.active {
+    background-color: rgba(128, 128, 128, 0.2);
+}
+
+.navbar-nav li.active::after {
     width: 100%;
     left: 0;
 }
 
-.my-row li::after {
+.navbar-nav li:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.navbar-nav li::after {
     content: '';
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: 10px;
+    bottom: 0px;
     left: 50%;
     background-color: #000;
     transition: all 0.3s ease-in-out;
-}
-
-.my-row {
-    flex-wrap: unset !important;
 }
 
 .icon-1 {
@@ -284,4 +312,167 @@ li {
 }
 
 
-/* footer section end */
+/* Footer Section End */
+
+/* Food */
+
+#category-nav {
+    position: sticky;
+    overflow: hidden;
+    top: 47px;
+    z-index: 3;
+}
+
+#category-list {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+}
+
+#category-list .nav-item{
+    flex: 0 0 auto;
+}
+
+.food-card,
+.food-card .card-body {
+    height: 100%;
+}
+
+/* Food End */
+
+
+/* Login & Sign Up */
+
+.login-form{
+    width:auto !important;
+    margin: 15vh 10vw;
+    border: 2px solid;
+}
+
+.textfield-login {
+    padding: 20px;
+    border-right: 2px solid;
+    border-left: 2px solid;
+}
+
+.imgfield-login{
+    background-color: #ffeed4;
+}
+
+.full-width-image {
+    width: 100% ;
+    height: 100%;
+    object-fit: cover;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.input-login {
+    border: none;
+    border-bottom: 2px solid #ee5f7a;
+    width: 100%;
+    max-width: none;
+    padding: 10px 5px;
+    font-size: 16px;
+    background-color: transparent;
+}
+.input-login::-webkit-inner-spin-button,
+.input-login::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+}
+
+.input-login:focus {
+    outline: none;
+    border-bottom: 3px solid #ee5f7a; /* Đổi màu đường gạch dưới khi focus */
+}
+
+.input-label {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    font-size: 16px;
+    color: #aaa;
+    pointer-events: none;
+    transition: 0.2s ease all;
+}
+
+.input-login:focus ~ .input-label,
+.input-login:not(:placeholder-shown) ~ .input-label {
+    top: -15px;
+    left: 0;
+    font-size: 12px;
+    color: #4c7744; /* Đổi màu chữ khi focus */
+}
+
+.btn-login {
+    position: relative;
+    background-color: #4c7744;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-login .btn {
+    color: white;
+    width: 100%;
+}
+
+.btn-login .btn:hover{
+    color: white;
+    font-weight:bold;
+}
+
+.btn-login .btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+
+.btn-login .btn.active::before {
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
+}
+
+.btn-login .btn.active {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.overlay-login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.0);
+}
+
+.overlay-login-text {
+    color: #003366;
+    padding: 20% 25% 20% 20%;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* Login & Sign Up End */

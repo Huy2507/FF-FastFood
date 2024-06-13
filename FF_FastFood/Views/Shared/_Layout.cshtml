@@ -1,40 +1,44 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/Content/style.css")
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @Scripts.Render("~/Content/myScript.js")
     <script src="https://kit.fontawesome.com/f02f65c258.js" crossorigin="anonymous"></script>
+    @Styles.Render("~/Content/style.css")
 
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md bg-info my-nav">
-            <div id="div_container" class="container-fluid bg-light my-nb">
+        <nav class="navbar navbar-expand-md my-nav p-0">
+            <div id="div_container" class="container-fluid bg-light my-nb h-100">
                 <img src="~/images/logo.png" class="d-flex:float-lg-start my-logo ms-4" alt="">
-                <button class="navbar-toggler my-toggler-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="navbarNav" aria aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler my-toggler-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <p Class="FF_name m-0 fw-bold">FF FastFood</p>
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                    <ul class="navbar-nav row p-0 my-row-1-1 fw-bold my-row">
-                        <li class="nav-item m-2 col-sm-2 p-0">
-                            <a href="" class="nav-link p-0">THỰC ĐƠN</a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
+                        <li class="nav-item mt-2 mb-2 col-4 col-sm-3 col-md-3 col-lg-2 p-0">
+                            <a href="@Url.Action("Index", "Food")" class="w-100 nav-link p-0 a-navbar">THỰC ĐƠN</a>
                         </li>
-                        <li class="nav-item m-2 col-sm-2 p-0">
-                            <a href="" class="nav-link p-0">KHUYẾN MÃI</a>
+                        <li class="nav-item mt-2 mb-2 col-4 col-sm-3 col-md-3 col-lg-2 p-0">
+                            <a href="" class="w-100 nav-link p-0 a-navbar">ƯU ĐÃI</a>
                         </li>
-                        <li class="nav-item m-2 col-sm-2 p-0">
-                            <a href="" class="nav-link p-0">CÁI GÌ ĐÓ</a>
+                        <li class="nav-item mt-2 mb-2 col-4 col-sm-3 col-md-3 col-lg-2 p-0">
+                            <a href="" class="w-100 nav-link p-0 a-navbar">CÁI GÌ ĐÓ</a>
                         </li>
-                        <li class="nav-item m-2 col-sm-2 p-0">
-                            <a href="" class="nav-link p-0">CHƯA BIẾT</a>
+                        <li class="nav-item mt-2 mb-2 col-4 col-sm-3 col-md-3 col-lg-2 p-0">
+                            <a href="" class="w-100 nav-link p-0 a-navbar">CHƯA BIẾT</a>
                         </li>
                     </ul>
                 </div>
@@ -69,42 +73,37 @@
                 <div class="col-12 col-md-3">
                     <div class="useful-link footer_content">
                         <h2>Useful Links</h2>
-                        <img src="./assets/images/about/home_line.png" alt="" class="img-fluid">
-                        <div class="use-links">
+                        <ul class="use-links">
                             <li><a href="index.html"><i class="fa fa-angle-double-right"></i> Home</a></li>
                             <li><a href="about.html"><i class="fa fa-angle-double-right"></i> About Us</a></li>
                             <li><a href="gallery.html"><i class="fa fa-angle-double-right"></i> Gallery</a></li>
                             <li><a href="contact.html"><i class="fa fa-angle-double-right"></i> Contact</a></li>
-                        </div>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="social-links footer_content">
                         <h2>Follow Us</h2>
-                        <img src="./assets/images/about/home_line.png" alt="">
-                        <div class="social-icons">
+                        <ul class="social-icons">
                             <li><a href=""><i class="fa fa-facebook-f"></i> Facebook</a></li>
                             <li><a href=""><i class="fa fa-lo fa-instagram"></i> Instagram</a></li>
                             <li><a href=""><i class="fa fa-linkedin"></i> Linkedin</a></li>
-                        </div>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="address footer_content">
                         <h2>Address</h2>
-                        <img src="./assets/images/about/home_line.png" alt="" class="img-fluid">
-                        <div class="address-links">
+                        <ul class="address-links">
                             <li class="address1"><i class="fa fa-location-dot"></i> Điện Biên Phủ, Phường 15, Bình Thạnh, Thành phố Hồ Chí Minh</li>
                             <li><a href=""><i class="fa fa-phone"></i> 84 838780712</a></li>
                             <li><a href=""><i class="fa fa-envelope"></i> mail@1234567.com</a></li>
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    
 </body>
 </html>
