@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using FF_Fastfood.Models;
 using FF_Fastfood.Services;
 using FF_Fastfood.Attributes;
+using System.Web;
 
 namespace FF_Fastfood.Controllers
 {
@@ -30,9 +31,14 @@ namespace FF_Fastfood.Controllers
                 var user = AuthenticateUser(model.Username, model.Password);
                 if (user != null)
                 {
+                    var cus = db.Customers.FirstOrDefault(a=> a.account_id == user.account_id);
                     // Đăng nhập thành công
                     // Thiết lập session hoặc cookie để lưu trữ thông tin đăng nhập
-                    Session["User"] = user;
+                    HttpCookie userCookie = new HttpCookie("UserCookie");
+                    userCookie.Values["UserName"] = cus.name;
+                    userCookie.Values["UserId"] = user.account_id.ToString();
+                    userCookie.Expires = DateTime.Now.AddHours(1); // Cookie hết hạn sau 1 giờ
+                    Response.Cookies.Add(userCookie);
                     return RedirectToAction("Index", "Food");
                 }
                 else
@@ -82,7 +88,6 @@ namespace FF_Fastfood.Controllers
                     account_id = newAccount.account_id,
                     name = model.Name,
                     phone = model.UserName,
-                    address = model.Address,
                     created_at = DateTime.Now,
                     updated_at = DateTime.Now
                 };
@@ -112,7 +117,12 @@ namespace FF_Fastfood.Controllers
         public ActionResult Logout()
         {
             // Xóa session hoặc cookie
-            Session.Clear();
+            if (Request.Cookies["UserCookie"] != null)
+            {
+                HttpCookie userCookie = new HttpCookie("UserCookie");
+                userCookie.Expires = DateTime.Now.AddDays(-1); // Thiết lập ngày hết hạn trong quá khứ
+                Response.Cookies.Add(userCookie);
+            }
             return RedirectToAction("Login");
         }
 
@@ -141,7 +151,7 @@ namespace FF_Fastfood.Controllers
                 // Tạo mã xác nhận
                 var resetCode = new Random().Next(100000, 999999).ToString();
                 account.PasswordResetCode = resetCode;
-                account.ResetCodeExpiration = DateTime.Now.AddMinutes(10); // mã có hiệu lực trong 10 phút
+                account.ResetCodeExpiration = DateTime.Now.AddMinutes(2); // mã có hiệu lực trong 10 phút
                 db.SaveChanges();
 
                 // Gửi mã xác nhận qua SMS

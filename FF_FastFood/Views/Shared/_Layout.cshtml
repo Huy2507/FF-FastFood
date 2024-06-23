@@ -23,7 +23,9 @@
             <div id="div_container" class="container-fluid bg-light my-nb h-100">
                 <img src="~/images/logo.png" class="d-flex:float-lg-start my-logo ms-4" alt="">
                 <button class="navbar-toggler my-toggler-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span>
+                        <i class="fa-solid fa-list fa-lg"></i>
+                    </span>
                 </button>
                 <p Class="FF_name m-0 fw-bold">FF FastFood</p>
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -43,7 +45,7 @@
                     </ul>
                 </div>
                 <div id="div_icon">
-                    <a class="text-decoration-none fs-3 icon-1 me-5 " href="@Url.Action("Index", "Home")">
+                    <a class="text-decoration-none fs-3 icon-1 me-5 " href="@Url.Action("EditProfile", "MyAccount")">
                         <i class="fa-solid fa-user"></i>
                     </a>
 

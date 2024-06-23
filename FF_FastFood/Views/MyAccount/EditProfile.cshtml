@@ -1,0 +1,69 @@
+﻿@using FF_Fastfood.Models
+@model FF_Fastfood.Models.EditProfileViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="myaccount-section d-flex justify-content-center align-items-center" id="section_1">
+    <div class="container-fluid my-account-form">
+        <div class="row">
+            <div class="col-md-5 p-0 position-relative d-md-flex sidebar-myaccount">
+                <div class="p-4 ">
+                    <h2 class="text-dark">XIN CHÀO, @Model.userName</h2>
+                    <a href="@Url.Action("Logout","Account")" class="text-dark pb-2 d-none d-md-block">Đăng Xuất</a>
+                    <nav class="navbar navbar-expand-md p-0 my-nav-my-account">
+                        <a href="@Url.Action("Logout","Account")" class="text-dark pb-2 d-block d-md-none">Đăng Xuất</a>
+                        <button class="navbar-toggler p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar1" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                            <span>
+                                <i class="fa-solid fa-list fa-lg" style="color: #ffffff;"></i>
+                            </span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="collapsibleNavbar1">
+                            <ul class="p-0 pt-3 listaction-myaccount">
+                                <li class="pt-4">
+                                    <a href="@Url.Action("EditProfile","MyAccount")" class="text-dark active">Chi tiết tài khoản</a>
+                                </li>
+                                <li class="pt-4">
+                                    <a href="@Url.Action("YourAddresses","MyAccount")" class="text-dark">Địa chỉ của bạn</a>
+                                </li>
+                                <li class="pt-4">
+                                    <a href="@Url.Action("ChangePassword","MyAccount")" class="text-dark">Đổi mật khẩu</a>
+                                </li>
+                                <li class="pt-4">
+                                    <a href="@Url.Action("Orders","MyAccount")" class="text-dark">Đơn hàng đã đặt</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-6 textfield-login textfield-myaccount ps-5 border-0">
+                @using (Html.BeginForm("EditProfile", "MyAccount", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <h1 class="mb-5 text-white">CHI TIẾT TÀI KHOẢN</h1>
+                    <div class="form-group">
+                        <input class="col-12 mb-2 w-100 input-login text-white" type="text" name="userName" id="Name" placeholder="" value="@Model.userName" required>
+                        <label for="Name" class="input-label text-white">Tên</label>
+                    </div>
+                    <div class="form-group">
+                        <input class="col-12 mb-2 w-100 input-login text-white" type="text" name="Phone" id="Phone" placeholder="" value="@Model.Phone" required>
+                        <label for="Phone" class="input-label text-white">Số điện thoại</label>
+                    </div>
+                    <div class="form-group">
+                        <input class="col-12 mb-2 w-100 input-login text-white" type="email" name="Email" id="Email" placeholder="" value="@Model.Email" required>
+                        <label for="Email" class="input-label text-white">Email</label>
+                    </div>
+                    <div>
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger p-0" })
+                    </div>
+                    <div class="btn-login mb-3">
+                        <button type="submit" name="submit" class="btn m-0" value="EditProfile">Cập nhật tài khoản</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

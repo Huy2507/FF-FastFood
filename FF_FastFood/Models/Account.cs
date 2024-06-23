@@ -26,7 +26,6 @@ namespace FF_Fastfood.Models
         public string username { get; set; }
         public string password { get; set; }
         public string role { get; set; }
-        public string email { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
         public Nullable<System.DateTime> updated_at { get; set; }
         public string PasswordResetCode { get; set; }

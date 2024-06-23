@@ -18,6 +18,19 @@
           <Property Name="PasswordResetCode" Type="nvarchar" MaxLength="1000" />
           <Property Name="ResetCodeExpiration" Type="datetime" />
         </EntityType>
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="street" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ward" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="district" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="zip_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="country" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="customer_id" Type="int" />
+        </EntityType>
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="cart_id" />
@@ -58,7 +71,6 @@
           <Property Name="account_id" Type="int" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="phone" Type="nvarchar" MaxLength="20" />
-          <Property Name="address" Type="nvarchar" MaxLength="255" />
           <Property Name="email" Type="nvarchar" MaxLength="100" />
           <Property Name="created_at" Type="datetime" />
           <Property Name="updated_at" Type="datetime" />
@@ -140,6 +152,7 @@
           <Property Name="total_amount" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="payment_id" Type="int" />
+          <Property Name="address_id" Type="int" />
         </EntityType>
         <EntityType Name="Payments">
           <Key>
@@ -154,6 +167,18 @@
           <Property Name="created_at" Type="datetime" />
           <Property Name="updated_at" Type="datetime" />
         </EntityType>
+        <Association Name="FK__Address__custome__4F47C5E3">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Cart__customer_i__17F790F9">
           <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
           <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
@@ -310,8 +335,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Orders_Addresses">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="address_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="FF_FastFoodModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart_Items" EntityType="Self.Cart_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
@@ -323,6 +361,10 @@
           <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Address__custome__4F47C5E3" Association="Self.FK__Address__custome__4F47C5E3">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
           <AssociationSet Name="FK__Cart__customer_i__17F790F9" Association="Self.FK__Cart__customer_i__17F790F9">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Cart" EntitySet="Cart" />
@@ -375,6 +417,10 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Payments" EntitySet="Payments" />
           </AssociationSet>
+          <AssociationSet Name="FK_Orders_Addresses" Association="Self.FK_Orders_Addresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -417,13 +463,13 @@
           <Property Name="account_id" Type="Int32" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="created_at" Type="DateTime" Precision="3" />
           <Property Name="updated_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Account" Relationship="Self.FK__Customers__accou__440B1D61" FromRole="Customers" ToRole="Accounts" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__customer__5070F446" FromRole="Customers" ToRole="Orders" />
           <NavigationProperty Name="Carts" Relationship="FF_FastFoodModel.FK__Cart__customer_i__17F790F9" FromRole="Customer" ToRole="Cart" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Addresses" Relationship="FF_FastFoodModel.FK__Address__custome__4F47C5E3" FromRole="Customer" ToRole="Address" />
+          <NavigationProperty Name="Orders" Relationship="FF_FastFoodModel.FK__Orders__customer__5070F446" FromRole="Customer" ToRole="Order" />
         </EntityType>
         <EntityType Name="Deliverer">
           <Key>
@@ -453,7 +499,7 @@
           <Property Name="completed_at" Type="DateTime" Precision="3" />
           <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Deliverer" Relationship="Self.FK__Deliverie__deliv__628FA481" FromRole="Deliveries" ToRole="Deliverers" />
-          <NavigationProperty Name="Order" Relationship="Self.FK__Deliverie__order__619B8048" FromRole="Deliveries" ToRole="Orders" />
+          <NavigationProperty Name="Order" Relationship="FF_FastFoodModel.FK__Deliverie__order__619B8048" FromRole="Delivery" ToRole="Order" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -500,22 +546,7 @@
           <Property Name="quantity" Type="Int32" Nullable="false" />
           <Property Name="price" Type="Decimal" Precision="10" Scale="3" Nullable="false" />
           <NavigationProperty Name="Food" Relationship="Self.FK__Order_Ite__food___5441852A" FromRole="Order_Items" ToRole="Foods" />
-          <NavigationProperty Name="Order" Relationship="Self.FK__Order_Ite__order__534D60F1" FromRole="Order_Items" ToRole="Orders" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="order_id" />
-          </Key>
-          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="customer_id" Type="Int32" />
-          <Property Name="order_date" Type="DateTime" Precision="3" />
-          <Property Name="total_amount" Type="Decimal" Precision="10" Scale="3" Nullable="false" />
-          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="payment_id" Type="Int32" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__customer__5070F446" FromRole="Orders" ToRole="Customers" />
-          <NavigationProperty Name="Deliveries" Relationship="Self.FK__Deliverie__order__619B8048" FromRole="Orders" ToRole="Deliveries" />
-          <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__order__534D60F1" FromRole="Orders" ToRole="Order_Items" />
-          <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__order___59063A47" FromRole="Orders" ToRole="Payments" />
+          <NavigationProperty Name="Order" Relationship="FF_FastFoodModel.FK__Order_Ite__order__534D60F1" FromRole="Order_Items" ToRole="Order" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -529,7 +560,7 @@
           <Property Name="amount" Type="Decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="created_at" Type="DateTime" Precision="3" />
           <Property Name="updated_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Order" Relationship="Self.FK__Payments__order___59063A47" FromRole="Payments" ToRole="Orders" />
+          <NavigationProperty Name="Order" Relationship="FF_FastFoodModel.FK__Payments__order___59063A47" FromRole="Payment" ToRole="Order" />
         </EntityType>
         <Association Name="FK__Customers__accou__440B1D61">
           <End Role="Accounts" Type="Self.Account" Multiplicity="0..1" />
@@ -579,18 +610,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__customer__5070F446">
-          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="customer_id" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="customer_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Deliverie__deliv__628FA481">
           <End Role="Deliverers" Type="Self.Deliverer" Multiplicity="0..1" />
           <End Role="Deliveries" Type="Self.Delivery" Multiplicity="*" />
@@ -600,18 +619,6 @@
             </Principal>
             <Dependent Role="Deliveries">
               <PropertyRef Name="deliverer_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Deliverie__order__619B8048">
-          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
-          <End Role="Deliveries" Type="Self.Delivery" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="order_id" />
-            </Principal>
-            <Dependent Role="Deliveries">
-              <PropertyRef Name="order_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -627,30 +634,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order_Ite__order__534D60F1">
-          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
-          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="order_id" />
-            </Principal>
-            <Dependent Role="Order_Items">
-              <PropertyRef Name="order_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Payments__order___59063A47">
-          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
-          <End Role="Payments" Type="Self.Payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="order_id" />
-            </Principal>
-            <Dependent Role="Payments">
-              <PropertyRef Name="order_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="FF_FastFoodEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -660,7 +643,6 @@
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Foods" EntityType="Self.Food" />
           <EntitySet Name="Order_Items" EntityType="Self.Order_Items" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
           <AssociationSet Name="FK__Customers__accou__440B1D61" Association="Self.FK__Customers__accou__440B1D61">
             <End Role="Accounts" EntitySet="Accounts" />
@@ -678,29 +660,13 @@
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Foods" EntitySet="Foods" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__customer__5070F446" Association="Self.FK__Orders__customer__5070F446">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
           <AssociationSet Name="FK__Deliverie__deliv__628FA481" Association="Self.FK__Deliverie__deliv__628FA481">
             <End Role="Deliverers" EntitySet="Deliverers" />
-            <End Role="Deliveries" EntitySet="Deliveries" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Deliverie__order__619B8048" Association="Self.FK__Deliverie__order__619B8048">
-            <End Role="Orders" EntitySet="Orders" />
             <End Role="Deliveries" EntitySet="Deliveries" />
           </AssociationSet>
           <AssociationSet Name="FK__Order_Ite__food___5441852A" Association="Self.FK__Order_Ite__food___5441852A">
             <End Role="Foods" EntitySet="Foods" />
             <End Role="Order_Items" EntitySet="Order_Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Order_Ite__order__534D60F1" Association="Self.FK__Order_Ite__order__534D60F1">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Order_Items" EntitySet="Order_Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Payments__order___59063A47" Association="Self.FK__Payments__order___59063A47">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Payments" EntitySet="Payments" />
           </AssociationSet>
           <EntitySet Name="Carts" EntityType="FF_FastFoodModel.Cart" />
           <EntitySet Name="Cart_Items" EntityType="FF_FastFoodModel.Cart_Items" />
@@ -715,6 +681,32 @@
           <AssociationSet Name="FK__Cart_Item__food___1DB06A4F" Association="FF_FastFoodModel.FK__Cart_Item__food___1DB06A4F">
             <End Role="Food" EntitySet="Foods" />
             <End Role="Cart_Items" EntitySet="Cart_Items" />
+          </AssociationSet>
+          <EntitySet Name="Addresses" EntityType="FF_FastFoodModel.Address" />
+          <AssociationSet Name="FK__Address__custome__4F47C5E3" Association="FF_FastFoodModel.FK__Address__custome__4F47C5E3">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <EntitySet Name="Orders" EntityType="FF_FastFoodModel.Order" />
+          <AssociationSet Name="FK__Orders__customer__5070F446" Association="FF_FastFoodModel.FK__Orders__customer__5070F446">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Deliverie__order__619B8048" Association="FF_FastFoodModel.FK__Deliverie__order__619B8048">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Delivery" EntitySet="Deliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__order__534D60F1" Association="FF_FastFoodModel.FK__Order_Ite__order__534D60F1">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__order___59063A47" Association="FF_FastFoodModel.FK__Payments__order___59063A47">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Addresses" Association="FF_FastFoodModel.FK_Orders_Addresses">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cart">
@@ -777,6 +769,110 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ward" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="district" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="zip_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="customer_id" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="FF_FastFoodModel.FK__Address__custome__4F47C5E3" FromRole="Address" ToRole="Customer" />
+          <NavigationProperty Name="Orders" Relationship="FF_FastFoodModel.FK_Orders_Addresses" FromRole="Address" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK__Address__custome__4F47C5E3">
+          <End Type="FF_FastFoodModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="FF_FastFoodModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_id" Type="Int32" />
+          <Property Name="order_date" Type="DateTime" Precision="3" />
+          <Property Name="total_amount" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="payment_id" Type="Int32" />
+          <Property Name="address_id" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="FF_FastFoodModel.FK__Orders__customer__5070F446" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Deliveries" Relationship="FF_FastFoodModel.FK__Deliverie__order__619B8048" FromRole="Order" ToRole="Delivery" />
+          <NavigationProperty Name="Order_Items" Relationship="FF_FastFoodModel.FK__Order_Ite__order__534D60F1" FromRole="Order" ToRole="Order_Items" />
+          <NavigationProperty Name="Payments" Relationship="FF_FastFoodModel.FK__Payments__order___59063A47" FromRole="Order" ToRole="Payment" />
+          <NavigationProperty Name="Address" Relationship="FF_FastFoodModel.FK_Orders_Addresses" FromRole="Order" ToRole="Address" />
+        </EntityType>
+        <Association Name="FK__Orders__customer__5070F446">
+          <End Type="FF_FastFoodModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="FF_FastFoodModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Deliverie__order__619B8048">
+          <End Type="FF_FastFoodModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="FF_FastFoodModel.Delivery" Role="Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__order__534D60F1">
+          <End Type="FF_FastFoodModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="FF_FastFoodModel.Order_Items" Role="Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__order___59063A47">
+          <End Type="FF_FastFoodModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="FF_FastFoodModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Addresses">
+          <End Type="FF_FastFoodModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="FF_FastFoodModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="address_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -818,7 +914,6 @@
                 <ScalarProperty Name="account_id" ColumnName="account_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="created_at" ColumnName="created_at" />
                 <ScalarProperty Name="updated_at" ColumnName="updated_at" />
               </MappingFragment>
@@ -896,18 +991,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="FF_FastFoodModel.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="order_id" ColumnName="order_id" />
-                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
-                <ScalarProperty Name="order_date" ColumnName="order_date" />
-                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Payments">
             <EntityTypeMapping TypeName="FF_FastFoodModel.Payment">
               <MappingFragment StoreEntitySet="Payments">
@@ -941,6 +1024,33 @@
                 <ScalarProperty Name="food_id" ColumnName="food_id" />
                 <ScalarProperty Name="cart_id" ColumnName="cart_id" />
                 <ScalarProperty Name="cart_item_id" ColumnName="cart_item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="FF_FastFoodModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="district" ColumnName="district" />
+                <ScalarProperty Name="ward" ColumnName="ward" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="FF_FastFoodModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="address_id" ColumnName="address_id" />
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

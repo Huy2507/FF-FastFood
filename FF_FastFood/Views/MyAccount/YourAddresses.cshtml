@@ -1,0 +1,93 @@
+﻿@using FF_Fastfood.Models
+@model FF_Fastfood.Models.YourAddressesViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="myaccount-section d-flex justify-content-center align-items-center" id="section_1">
+    <div class="container-fluid my-account-form">
+        <div class="row">
+            <div class="col-md-5 p-0 position-relative d-md-flex sidebar-myaccount">
+                <div class="p-4 ">
+                    <h2 class="text-dark">XIN CHÀO, @Model.userName</h2>
+                    <a href="@Url.Action("Logout","Account")" class="text-dark pb-2 d-none d-md-block">Đăng Xuất</a>
+                    <nav class="navbar navbar-expand-md p-0 my-nav-my-account">
+                        <a href="@Url.Action("Logout","Account")" class="text-dark pb-2 d-block d-md-none">Đăng Xuất</a>
+                        <button class="navbar-toggler p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar1" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                            <span>
+                                <i class="fa-solid fa-list fa-lg" style="color: #ffffff;"></i>
+                            </span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="collapsibleNavbar1">
+                            <ul class="p-0 pt-3 listaction-myaccount">
+                                <li class="pt-4">
+                                    <a href="@Url.Action("EditProfile","MyAccount")" class="text-dark">Chi tiết tài khoản</a>
+                                </li>
+                                <li class="pt-4">
+                                    <a href="@Url.Action("YourAddresses","MyAccount")" class="text-dark active">Địa chỉ của bạn</a>
+                                </li>
+                                <li class="pt-4">
+                                    <a href="@Url.Action("ChangePassword","MyAccount")" class="text-dark">Đổi mật khẩu</a>
+                                </li>
+                                <li class="pt-4">
+                                    <a href="@Url.Action("Orders","MyAccount")" class="text-dark">Đơn hàng đã đặt</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-6 textfield-login textfield-myaccount ps-5 border-0">
+                <h1 class="text-white">ĐỊA CHỈ CỦA BẠN</h1>
+                @if (Model.Addresses == null || Model.Addresses.Count == 0)
+                {
+                    <p>Bạn chưa có địa chỉ</p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Địa chỉ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var address in Model.Addresses)
+                            {
+                                <tr>
+                                    <td>@address.street, @address.ward, @address.district, @address.city</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-delete" data-id="@address.id">Xóa</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+
+            <!-- Modal -->
+            <div id="deleteModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Xóa địa chỉ</h5>
+                            <button type="button" class="close-form-xn" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Bạn có chắc muốn xóa địa chỉ này không?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary close-form-xn" data-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-danger" id="confirmDelete">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

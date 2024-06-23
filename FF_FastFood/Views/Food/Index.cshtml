@@ -33,11 +33,14 @@
                     <h2 class="mt-4">@category.category_name</h2>
                     @foreach (var item in Model.Items.Where(x => x.category_name == category.category_name))
                     {
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 mt-3">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 mt-4">
                             <div class="card d-flex m-1 food-card">
                                 <div class="row g-0 food-card">
                                     <div class="col-4 col-md-12">
-                                        <img class="card-img-top img-fluid rounded-start" src="@item.image_url" alt="">
+                                        <div class="img-aspect-ratio">
+                                            <img class="card-img-top img-fluid rounded-start" src="@item.image_url" alt="">
+                                        </div>
+                                        
                                     </div>
                                     <div class="col-8 col-md-12 d-flex">
                                         <div class="card-body flex-grow-1 d-flex flex-column">

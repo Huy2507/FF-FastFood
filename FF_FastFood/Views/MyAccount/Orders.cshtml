@@ -1,0 +1,91 @@
+﻿@model List<FF_Fastfood.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<section class="myaccount-section d-flex justify-content-center align-items-center" id="section_1">
+    <div class="container-fluid my-account-form">
+            <div class="row">
+                <div class="col-md-5 p-0 position-relative d-md-flex sidebar-myaccount">
+                    <div class="p-4 ">
+                        @{
+                            var userName = "";
+                        }
+                        @if (Model.Count != 0)
+                        {
+                            var userCookie = Request.Cookies["UserCookie"];
+                            userName = userCookie.Values["UserName"];
+                        }
+                        <h2 class="text-dark">XIN CHÀO, @userName</h2>
+                        <a href="@Url.Action("Logout", "Account")" class="text-dark pb-2 d-none d-md-block">Đăng Xuất</a>
+                        <nav class="navbar navbar-expand-md p-0 my-nav-my-account">
+                            <a href="@Url.Action("Logout", "Account")" class="text-dark pb-2 d-block d-md-none">Đăng Xuất</a>
+                            <button class="navbar-toggler p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar1" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                                <span>
+                                    <i class="fa-solid fa-list fa-lg" style="color: #ffffff;"></i>
+                                </span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="collapsibleNavbar1">
+                                <ul class="p-0 pt-3 listaction-myaccount">
+                                    <li class="pt-4">
+                                        <a href="@Url.Action("EditProfile", "MyAccount")" class="text-dark">Chi tiết tài khoản</a>
+                                    </li>
+                                    <li class="pt-4">
+                                        <a href="@Url.Action("YourAddresses", "MyAccount")" class="text-dark">Địa chỉ của bạn</a>
+                                    </li>
+                                    <li class="pt-4">
+                                        <a href="@Url.Action("ChangePassword", "MyAccount")" class="text-dark">Đổi mật khẩu</a>
+                                    </li>
+                                    <li class="pt-4">
+                                        <a href="@Url.Action("Orders", "MyAccount")" class="text-dark active">Đơn hàng đã đặt</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div id="textfield-login" class="col-md-6 textfield-login textfield-myaccount ps-5 border-0">
+                    <div class="container">
+                        <div id="orderList">
+                            <h1 class=" text-white">DANH SÁCH ĐƠN HÀNG</h1>
+                            @if (Model.Count == 0)
+                            {
+                                <p>Bạn chưa có đơn hàng nào!!.</p>
+                            }
+                            else
+                            {
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã đơn</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Tổng tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var order in Model)
+                                        {
+                                            <tr>
+                                                <td>@order.OrderId</td>
+                                                <td>@order.OrderDate</td>
+                                                <td>
+                                                    <p>@order.TotalAmount.ToString("N0")đ</p>
+                                                </td>
+                                                <td>
+                                                    <button class="btn-view-details" data-id="@order.OrderId">Xem chi tiết</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                        <div id="orderDetails" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+</section>
