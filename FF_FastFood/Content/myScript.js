@@ -72,18 +72,18 @@
 
 
     var navbarHeight = $('.navbar').outerHeight();
-    $('a[href^="#"]').on('click', function (e) {
+    $('a[href^="tat-ca-cac-mon"]').on('click', function (e) {
         e.preventDefault();
         // Lấy id của phần tử mục tiêu (category_name)
         var target = this.hash;
 
         // Cuộn đến vị trí của phần tử mục tiêu trên trang
         $('html, body').stop().animate({
-            'scrollTop': $(target).offset().top - (navbarHeight * 2)
+            'scrollTop': 0
         }, 10, 'swing');
 
         // Cập nhật địa chỉ URL của trang
-        history.pushState(null, null, target);
+        history.pushState(null, null, '/thuc-don/tat-ca-cac-mon');
     });
 
     /* Food End */
