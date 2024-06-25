@@ -159,7 +159,7 @@
         var orderId = $(this).data('id');
         var href = '/MyAccount/OrderDetails/' + orderId
         $.ajax({
-            url: '/MyAccount/OrderDetails/' + orderId,
+            url: href,
             type: 'GET',
             success: function (data) {
                 $('#orderList').hide();
@@ -187,4 +187,51 @@
     });
 
     /* My Account End */
+
+    /* Chef */
+
+    $('.menu-link').on('click', function (e) {
+        e.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+        $('.menu-item').removeClass('active'); // Xóa class active khỏi tất cả các thẻ li
+        $(this).closest('.menu-item').addClass('active'); // Thêm class active vào thẻ li chứa thẻ a được click
+    });
+
+    $('.layout-menu-toggle-close').on('click', function (e) {
+        e.preventDefault();
+        $('#layout-menu').addClass('close');
+        $('.layout-overlay').removeClass('show');
+    });
+
+    $('.layout-overlay').on('click', function () {
+        $('#layout-menu').addClass('close');
+        $(this).removeClass('show');
+    });
+
+
+    $('.order-row').on('click', function () {
+        var orderId = $(this).data('order-id');
+        var detailsRow = $('.order-details-row[data-order-id="' + orderId + '"]');
+
+        // Đóng tất cả các hàng chi tiết khác
+        $('.order-details-row').not(detailsRow).slideUp();
+
+        // Mở rộng chi tiết của hàng đang chọn
+        detailsRow.slideToggle(function () {
+            if (detailsRow.is(':visible')) {
+                $.ajax({
+                    url: '/Chef/OrderDetails/' +orderId, // Đảm bảo rằng action và controller đúng
+                    type: 'GET',
+                    success: function (data) {
+                        $('#order-details-' + orderId).html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching order details:', error);
+                    }
+                });
+            }
+        });
+    });
+
+
+    /* Chef End */
 });

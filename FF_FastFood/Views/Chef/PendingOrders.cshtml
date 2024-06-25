@@ -1,0 +1,39 @@
+﻿@using FF_Fastfood.Models
+@model IEnumerable<FF_Fastfood.Models.OrdersViewModel>
+
+@{
+    ViewBag.Title = "Pending Orders";
+    Layout = "~/Views/Shared/_LayoutChef.cshtml";
+}
+
+<h2>Pending Orders</h2>
+
+<table class="table table-striped text-dark">
+    <thead>
+        <tr>
+            <th>Mã Đơn</th>
+            <th>Tên khách hàng</th>
+            <th>Ngày đặt</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr class="order-row" data-order-id="@order.OrderId">
+                <td>@order.OrderId</td>
+                <td>@order.CustomerName</td>
+                <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                <td>@order.TotalAmount.ToString("N0")</td>
+                <td>@order.Status</td>
+            </tr>
+            <tr class="order-details-row mt-0" data-order-id="@order.OrderId" style="display: none;">
+                <td colspan="5" class="pt-0">
+                    <div id="order-details-@order.OrderId" class="order-details-container m-0"></div>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

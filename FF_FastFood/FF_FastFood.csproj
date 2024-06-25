@@ -262,6 +262,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\AuthorizeRoleAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChefController.cs" />
     <Compile Include="Controllers\FoodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -285,6 +286,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChefViewModels.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
@@ -471,6 +473,10 @@
     <Content Include="Views\MyAccount\YourAddresses.cshtml" />
     <Content Include="Views\MyAccount\_OrderDetails.cshtml" />
     <Content Include="Views\MyAccount\Orders.cshtml" />
+    <Content Include="Views\Shared\_LayoutChef.cshtml" />
+    <Content Include="Views\Chef\PendingOrders.cshtml" />
+    <Content Include="Views\Chef\OrderDetails.cshtml" />
+    <Content Include="Views\Chef\_OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Home\" />

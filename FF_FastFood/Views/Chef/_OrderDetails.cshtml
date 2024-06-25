@@ -1,0 +1,27 @@
+﻿@using FF_Fastfood.Models
+@model FF_Fastfood.Models.OrderDetailViewModel
+@Scripts.Render("~/bundles/modernizr")
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@Scripts.Render("~/Content/myScript.js")
+<script src="https://kit.fontawesome.com/f02f65c258.js" crossorigin="anonymous"></script>
+@Styles.Render("~/Content/style.css")
+
+<div class="text-dark">
+    <h2>Chi tiết đơn hàng</h2>
+    <div class="row pb-1">
+        <div class="col-4">Tên món</div>
+        <div class="col-4">Số lượng</div>
+        <div class="col-4">Giá</div>
+    </div>
+    @foreach (var item in Model.Items)
+    {
+        <div class="row">
+            <div class="col-4">@item.ProductName</div>
+            <div class="col-4">@item.Quantity</div>
+            <div class="col-4"><p class="m-0">@item.Price.ToString("N0")đ</p></div>
+        </div>
+    }
+</div>
+
+
+    

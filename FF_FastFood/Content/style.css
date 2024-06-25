@@ -113,6 +113,34 @@
 
 }
 
+@media only screen and (max-width: 1199.98px) {
+
+    .layout-overlay.show {
+        display: block;
+    }
+
+    .layout-menu {
+        transform: translateX(-110%);
+    }
+
+    .layout-overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100% !important;
+        left: 0;
+        display: none;
+        background: #b2b6ba;
+        opacity: 0.5;
+        cursor: pointer;
+        z-index: 1099;
+    }
+
+    .chef-content {
+        padding-left: 40px !important;
+    }
+}
+
 .container{
     max-width:none !important;
 }
@@ -591,3 +619,121 @@ li {
 
 
 /* My Account End */
+
+/* Chef */
+
+.layout-menu {
+    position: fixed;
+    width: 260px;
+    background-color: #f0d1a5;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .225);
+    border-radius: 4px;
+    min-height: 100vh;
+    z-index: 1100;
+}
+
+.layout-menu.close {
+    transform: translateX(-110%);
+    transition: 0.3s ease;
+}
+
+.app-brand {
+    height: 64px;
+    margin-top: 12px;
+    padding-right: 2rem;
+    padding-left: 1rem;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    line-height: 1;
+    align-items: center;
+}
+
+.app-brand-text{
+    color: #4c7744;
+    font-size: 25px;
+}
+
+.menu-item a{
+    text-decoration: none !important;
+}
+
+.app-brand-link {
+    display: flex;
+    align-items: center;
+}
+
+.app-brand-logo img{
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+    min-height: 1px;
+}
+
+.app-brand .layout-menu-toggle-close {
+    background-color: #000;
+    border: 7px solid #f5f5f9;
+    position: absolute;
+    left: 240px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    align-content: center;
+    text-align: center;
+}
+
+
+
+.menu-inner {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    flex-direction:column;
+}
+
+.menu-item {
+    
+}
+
+.menu-link {
+    height: 70px;
+    color: black !important;
+    border-radius: 0.375rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    margin: 0;
+    font-size: 15px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.menu-link:hover {
+    background-color: rgb(111, 158, 235, 0.16) !important;
+    
+}
+
+.menu-item.active > .menu-link {
+    color: #696cff;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgba(105, 108, 255, 0.16) !important;
+}
+
+
+.chef-content{
+    padding-left:284px;
+}
+
+.order-details-container {
+    padding: 10px; /* Padding bao quanh nội dung chi tiết */
+    border: 1px solid #ddd; /* Viền bo tròn */
+    background-color: #f9f9f9; /* Màu nền */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    margin-top: 10px; /* Khoảng cách với các hàng trên */
+}
+/* Chef End */

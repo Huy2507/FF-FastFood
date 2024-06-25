@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @Scripts.Render("~/Content/myScript.js")
+    <script src="https://kit.fontawesome.com/f02f65c258.js" crossorigin="anonymous"></script>
+    @Styles.Render("~/Content/style.css")
+
+</head>
+<body class="row">
+    <header>
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu h-100">
+            <div class="app-brand mb-3 mt-0">
+                <a href="index.html" class="app-brand-link text-decoration-none h-100">
+                    <span class="app-brand-logo h-100">
+                        <img class="w-100 h-100" src="~/images/logo.png" alt="Logo" />
+                    </span>
+                    <span class="app-brand-text fw-bold ms-2">FF_FastFood</span>
+                </a>
+                <a href="" class="layout-menu-toggle-close text-large ms-auto d-block d-xl-none">
+                    <i class="fa-solid fa-chevron-left align-middle text-white"></i>
+                </a>
+            </div>
+            <ul class="menu-inner">
+                <li class="menu-item active mb-1">
+                    <a href="" class="menu-link ms-2 me-2 p-3">
+                        <i class="fa-solid fa-clipboard-list me-3"></i>
+                        <div>Đơn hàng</div>
+                    </a>
+                </li>
+                <li class="menu-item mb-1">
+                    <a href="" class="menu-link ms-2 me-2 p-3">
+                        <i class="fa-solid fa-gear me-3"></i>
+                        <div>Danh sách món ăn</div>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <!-- / Menu -->
+        <div class="layout-overlay layout-menu-toggle-close"></div>
+    </header>
+    <div class="container body-content chef-content">
+        @RenderBody()
+        <hr />
+    </div>
+</body>
+
+</html>
