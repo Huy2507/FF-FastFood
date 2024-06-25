@@ -544,6 +544,7 @@ li {
 
 /* Login & Sign Up End */
 
+<<<<<<< Updated upstream
 /* My Account */
 
 .myaccount-section {
@@ -591,3 +592,323 @@ li {
 
 
 /* My Account End */
+=======
+/*Home Index Begin*/
+.body-content{
+    padding:0 !important;
+    margin:0 !important;
+}
+.ben-trong{
+    padding:15px;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 5px;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    width: 5%;
+}
+
+.section-dm-mon-an {
+    padding: 0;
+    margin: 30px 180px;
+}
+
+.td {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0;
+    width: 100%;
+}
+
+.td-dm-mon-an {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px auto;
+    padding-right: 10px;
+}
+
+.line {
+    flex-grow: 1;
+    height: 1.8px;
+    background-color: #e0e0e0;
+}
+
+.big-card {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.big-card .card {
+    padding: 0;
+    height: 258px;
+    width: 270px;
+}
+
+.big-card .my-card-img {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.big-card .card-img-top {
+    transition: all 0.3s ease;
+    height: 219px;
+}
+
+.big-card .card-img-top:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.popular-section {
+    padding: 0;
+    margin: 30px 180px;
+}
+.swiper .card {
+    padding: 0;
+    height: 258px;
+    width: 270px;
+}
+
+.swiper .my-card-img {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.swiper .card-img-top {
+    transition: all 0.3s ease;
+}
+
+.swiper .card-img-top:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+.store__container h2 {
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: var(--header-font);
+    color: var(--text-dark);
+    text-align: center;
+}
+
+.store__container p {
+    margin-bottom: 4rem;
+    font-weight: 500;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.swiper {
+    width: 100%;
+    padding-bottom: 5rem;
+}
+
+.swiper-slide {
+    max-width: 400px;
+}
+
+/* .store__card h4 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: var(--header-font);
+    color: var(--text-dark);
+    text-align: center;
+}
+
+.store__card img {
+    max-width: 325px;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+}
+
+.store__card h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    font-family: var(--header-font);
+    color: var(--text-dark);
+    text-align: center;
+} */
+
+.swiper-pagination-bullet-active {
+    background-color: #000000;
+}
+
+.td-dm-pho-bien {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px auto;
+    padding-right: 10px;
+}
+
+.popular-section .card {
+    height: 430px;
+}
+
+.big-card-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popular-section .card-footer {
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.btn-tuy-chinh,
+.btn-them {
+    border: 1px solid;
+    border-radius: 30px;
+    padding: 10px;
+    background-color: #fff;
+    font-weight: bold;
+}
+
+.btn-them {
+    width: 80%;
+    background-color: #E3002B;
+    border: #E3002B;
+    color: white;
+}
+.popular-section .store__card {
+    position: relative;
+}
+
+.popular-section .card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.popular-section .card-text:hover {
+    overflow: visible;
+    white-space: normal;
+    background-color: #EEEEEE;
+    color: #222831;
+    border-radius: 10px;
+    padding: 10px;
+    /* Màu nền khi hover */
+    position: absolute;
+    z-index: 1;
+    width: 90%;
+    height: 30%;
+    box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.2);
+    cursor: text;
+}
+.input-quantity{
+    width: 100px;
+}
+.Upd-Del{
+    display:flex;
+}
+.page_cart{
+    margin-top:100px;
+    min-height:100vh;
+}
+.rounded-thead th:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius:20px;
+}
+
+.rounded-thead th:last-child {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+@media screen and (max-width: 576px) {
+
+    .section-dm-mon-an,
+    .popular-section {
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+        .section-dm-mon-an .card {
+            width: 165px;
+            height: auto;
+        }
+
+    .store__card.card {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .section-dm-mon-an,
+    .popular-section {
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+
+    .section-dm-mon-an,
+    .popular-section {
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+        .section-dm-mon-an .card {
+            width: 165px;
+            height: auto;
+        }
+
+    .store__card.card {
+        width: 100%;
+    }
+}
+/*Home Index End*/
+
+/*Order Begin*/
+.my-Form-Order {
+    min-height: 100vh;
+    background-color: #F7F9F2;
+    border-radius: 20px;
+    padding: 100px
+}
+.my-title {
+    background-color: #B3E2A7;
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+.my-order-div {
+    background-color: #D1E7DD;
+    border-radius: 20px;
+    padding-top: 20px;
+}
+.my-order-success{
+    min-height: 100vh;
+    padding: 20px 74px;
+}
+.your-order{
+    background-color: rgba(0,255,0,0.1);
+    border-radius:20px;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+/*Order End*/
+>>>>>>> Stashed changes

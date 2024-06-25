@@ -101,6 +101,7 @@
 
     /* Login Sign Up End */
 
+<<<<<<< Updated upstream
     /* My Account */
 
     $('.listaction-myaccount li a').on('click', function (e) {
@@ -187,4 +188,73 @@
     });
 
     /* My Account End */
+=======
+
+    /* Swiper Begin */
+    const scrollRevealOption = {
+        distance: "50px",
+        origin: "bottom",
+        duration: 1000,
+    };
+
+    ScrollReveal().reveal(".header__image img", {
+        ...scrollRevealOption,
+        origin: "right",
+    });
+    ScrollReveal().reveal(".header__content h1", {
+        ...scrollRevealOption,
+        delay: 500,
+    });
+    ScrollReveal().reveal(".header__content p", {
+        ...scrollRevealOption,
+        delay: 1000,
+    });
+    ScrollReveal().reveal(".header__image__content ", {
+        duration: 1000,
+        delay: 1500,
+    });
+
+    ScrollReveal().reveal(".product__image img", {
+        ...scrollRevealOption,
+        origin: "left",
+    });
+    ScrollReveal().reveal(".product__card", {
+        ...scrollRevealOption,
+        delay: 500,
+        interval: 500,
+    });
+    const swiper = new Swiper(".swiper", {
+        loop: true,
+        effect: "slide",
+        grabCursor: true,
+        speed: 600, // Transition speed in milliseconds
+        spaceBetween: 30, // Space between slides in pixels
+        slidesPerView: "auto", // Number of slides visible at the same time
+        slidesPerGroup: 1,
+
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        breakpoints: {
+            576: { // For screens 576px and up
+                slidesPerView: 1, // Override slidesPerView
+                spaceBetween: 10, // Override spaceBetween
+            },
+            // Add more breakpoints if needed
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            992: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+            },
+            1445: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+            }
+        }
+    });
+    /* Swiper End */
+>>>>>>> Stashed changes
 });

@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "Index";
+    var slug = ViewBag.Slug as string;
 }
 
-<div data-bs-spy="scroll" data-bs-target="#category-nav" data-bs-offset="50" class="scrollspy-example">
+<div data-bs-spy="scroll" data-bs-target="#category-nav" data-bs-offset="50" class="scrollspy-example ben-trong">
     <nav id="category-nav" class="navbar navbar-light bg-light p-0">
         <div class="container">
             <button id="scroll-left" class="btn position-absolute fw-bold" style="left: 0; font-size: 24px;"><</button>
@@ -16,7 +17,7 @@
                     @foreach (var category in Model.Categories)
                     {
                         <li class="nav-item col-5 col-sm-3 col-md-2 p-0">
-                            <a class="nav-link w-100" href="#@category.slug" data-target="@category.slug">@category.category_name</a>
+                            <a class="nav-link w-100" href="@Url.Action("Index", "Food", new { slug = category.slug })" data-target="@category.slug">@category.category_name</a>
                         </li>
                     }
                 </ul>
@@ -25,7 +26,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             @foreach (var category in Model.Categories)
             {
@@ -33,7 +34,11 @@
                     <h2 class="mt-4">@category.category_name</h2>
                     @foreach (var item in Model.Items.Where(x => x.category_name == category.category_name))
                     {
+<<<<<<< Updated upstream
                         <div class="col-12 col-sm-12 col-md-6 col-lg-3 mt-4">
+=======
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 mt-5">
+>>>>>>> Stashed changes
                             <div class="card d-flex m-1 food-card">
                                 <div class="row g-0 food-card">
                                     <div class="col-4 col-md-12">
@@ -48,7 +53,7 @@
                                             <p class="card-text d-none d-md-block">@item.description</p>
                                             <p class="card-text">@item.price.ToString("N0")đ</p>
                                             <div class="mt-auto text-end">
-                                                <a href="#" class="btn btn-primary w-100 w-md-100">Thêm</a>
+                                                <a href="#" class="btn btn-primary w-100 w-md-100" onclick="addToCart(@item.food_id)">Thêm</a>
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +66,36 @@
         </div>
     </div>
 </div>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var slug = '@slug';
+        if (slug) {
+            var element = document.getElementById(slug);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                // Dịch lên 100px nếu cần
+                window.scrollTo(0, element.offsetTop - 100);
+            }
+        }
+    });
+function addToCart(foodId) {
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("AddToCart", "Cart")',
+        data: { foodId: foodId },
+        success: function (response) {
+            if (response.success) {
+                alert("Thêm vào giỏ hàng thành công!");
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function (xhr, status, error) {
+            alert("Có lỗi xảy ra. Vui lòng thử lại.");
+        }
+    });
+}
+</script>
 
 
 

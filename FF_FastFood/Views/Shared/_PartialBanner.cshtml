@@ -1,0 +1,33 @@
+﻿@model IEnumerable<FF_Fastfood.Models.Banner>
+@{
+    DateTime today = System.DateTime.Now;
+    var validItems = Model.Where(data => today >= data.start_Date && today < data.end_Date).ToList();
+}
+<div id="demo" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <!-- Indicators/dots -->
+    <div class="carousel-indicators">
+        @foreach (var item in validItems.Select((value, index) => new { Value = value, Index = index }))
+        {
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="@item.Index" class="@(item.Index == 0 ? "active" : "")"></button>
+        }
+    </div>
+
+    <!-- The slideshow/carousel -->
+    <div class="carousel-inner">
+        @foreach (var item in validItems.Select((value, index) => new { Value = value, Index = index }))
+        {
+            <div class="carousel-item @(item.Index == 0 ? "active" : "")">
+                <img src="@item.Value.bannerIMG" alt="Banner @item.Value.id" class="d-block w-100">
+            </div>
+        }
+    </div>
+
+    <!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+

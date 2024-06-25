@@ -262,10 +262,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\AuthorizeRoleAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\FoodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+
     <Compile Include="Controllers\MyAccountController.cs" />
+
+    <Compile Include="Controllers\OrderController.cs" />
+
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -273,7 +278,13 @@
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+<!--mới-->
     <Compile Include="Models\Address.cs">
+      <DependentUpon>FF_FastFood.tt</DependentUpon>
+    </Compile>
+<!--mới-->
+    <Compile Include="Models\Banner.cs">
+
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs">
@@ -316,16 +327,22 @@
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FoodViewModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyAccountViewModels.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\Order_Items.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Payment.cs">
+      <DependentUpon>FF_FastFood.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlaceOrderViewModel.cs" />
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -367,6 +384,7 @@
     <Content Include="images\Banner_Home\Banner3.jpg" />
     <Content Include="images\Banner_Home\Banner4.png" />
     <Content Include="images\Banner_Home\Banner5.jpg" />
+
     <Content Include="images\Food\burger-bo.jpeg" />
     <Content Include="images\Food\burger-ca.png" />
     <Content Include="images\Food\burger-ga.png" />
@@ -382,6 +400,16 @@
     <Content Include="images\Food\drink-tra-dao.jpg" />
     <Content Include="images\Food\gachiencay.jpg" />
     <Content Include="images\Food\gachienmam.jpg" />
+
+    <Content Include="images\CategoryFood\burger.jpg" />
+    <Content Include="images\CategoryFood\drink.jpg" />
+    <Content Include="images\CategoryFood\Ga_ran.jpg" />
+    <Content Include="images\CategoryFood\pizza.jpg" />
+    <Content Include="images\CategoryFood\pizza2.jpg" />
+    <Content Include="images\CategoryFood\pizza3.jpg" />
+    <Content Include="images\CategoryFood\pizza4.jpg" />
+    <Content Include="images\CategoryFood\snack.jpg" />
+
     <Content Include="images\Food\GaChienXu.jpg" />
     <Content Include="images\Food\garansotbbq.jpg" />
     <Content Include="images\Food\pizza-dac-biet.jpg" />
@@ -466,6 +494,7 @@
     <Content Include="Views\Food\Index.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\VerifyResetCode.cshtml" />
+
     <Content Include="Views\MyAccount\EditProfile.cshtml" />
     <Content Include="Views\MyAccount\ChangePassword.cshtml" />
     <Content Include="Views\MyAccount\YourAddresses.cshtml" />
@@ -474,6 +503,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Home\" />
+
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_PartialBanner.cshtml" />
+    <Content Include="Views\Shared\_PartialCategory.cshtml" />
+    <Content Include="Views\Shared\_PartialPopularFood.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Order\PlaceOrder.cshtml" />
+    <Content Include="Views\Order\OrderSuccess.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

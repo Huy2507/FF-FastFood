@@ -22,6 +22,22 @@ namespace FF_Fastfood.Models
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Cart>()
+                .HasMany(c => c.Cart_Items)
+                .WithRequired(ci => ci.Cart)
+                .HasForeignKey(ci => ci.cart_id);
+
+            modelBuilder.Entity<Cart_Items>()
+                .HasRequired(ci => ci.Food)
+                .WithMany(f => f.Cart_Items)
+                .HasForeignKey(ci => ci.food_id);
+
+            modelBuilder.Entity<Customer>()
+                .HasMany(c => c.Carts)
+                .WithRequired(c => c.Customer)
+                .HasForeignKey(c => c.customer_id);
+
+            base.OnModelCreating(modelBuilder);
             throw new UnintentionalCodeFirstException();
         }
     
@@ -36,7 +52,12 @@ namespace FF_Fastfood.Models
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Cart_Items> Cart_Items { get; set; }
+<<<<<<< Updated upstream
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+=======
+        public virtual DbSet<Banner> Banners { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+>>>>>>> Stashed changes
     }
 }

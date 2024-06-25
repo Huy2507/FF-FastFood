@@ -18,11 +18,16 @@
           <Property Name="PasswordResetCode" Type="nvarchar" MaxLength="1000" />
           <Property Name="ResetCodeExpiration" Type="datetime" />
         </EntityType>
+<<<<<<< Updated upstream
         <EntityType Name="Addresses">
+=======
+        <EntityType Name="Banner">
+>>>>>>> Stashed changes
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+<<<<<<< Updated upstream
           <Property Name="street" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ward" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="district" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -30,6 +35,18 @@
           <Property Name="zip_code" Type="nvarchar" MaxLength="20" />
           <Property Name="country" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="customer_id" Type="int" />
+=======
+          <Property Name="bannerIMG" Type="nvarchar" MaxLength="50" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" MaxLength="50" />
+          <Property Name="linkURL" Type="varchar" MaxLength="50" />
+          <Property Name="seo_title" Type="nvarchar" MaxLength="50" />
+          <Property Name="seo_descript" Type="nvarchar" MaxLength="50" />
+          <Property Name="seo_keywords" Type="nvarchar" MaxLength="50" />
+          <Property Name="slug" Type="nvarchar" MaxLength="50" />
+          <Property Name="start_Date" Type="datetime" />
+          <Property Name="end_Date" Type="datetime" />
+>>>>>>> Stashed changes
         </EntityType>
         <EntityType Name="Cart">
           <Key>
@@ -62,6 +79,7 @@
           <Property Name="seo_description" Type="nvarchar(max)" />
           <Property Name="seo_keywords" Type="nvarchar(max)" />
           <Property Name="slug" Type="nvarchar" MaxLength="255" />
+          <Property Name="IMG_URL" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -167,6 +185,7 @@
           <Property Name="created_at" Type="datetime" />
           <Property Name="updated_at" Type="datetime" />
         </EntityType>
+<<<<<<< Updated upstream
         <Association Name="FK__Address__custome__4F47C5E3">
           <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
           <End Role="Addresses" Type="Self.Addresses" Multiplicity="*" />
@@ -179,6 +198,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+=======
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+>>>>>>> Stashed changes
         <Association Name="FK__Cart__customer_i__17F790F9">
           <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
           <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
@@ -349,7 +380,11 @@
         </Association>
         <EntityContainer Name="FF_FastFoodModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+<<<<<<< Updated upstream
           <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+=======
+          <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
+>>>>>>> Stashed changes
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart_Items" EntityType="Self.Cart_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
@@ -361,10 +396,14 @@
           <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+<<<<<<< Updated upstream
           <AssociationSet Name="FK__Address__custome__4F47C5E3" Association="Self.FK__Address__custome__4F47C5E3">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Addresses" EntitySet="Addresses" />
           </AssociationSet>
+=======
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+>>>>>>> Stashed changes
           <AssociationSet Name="FK__Cart__customer_i__17F790F9" Association="Self.FK__Cart__customer_i__17F790F9">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Cart" EntitySet="Cart" />
@@ -454,6 +493,7 @@
           <Property Name="seo_keywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="slug" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Foods" Relationship="Self.FK__Foods__category___4CA06362" FromRole="Categories" ToRole="Foods" />
+          <Property Name="IMG_URL" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -682,6 +722,7 @@
             <End Role="Food" EntitySet="Foods" />
             <End Role="Cart_Items" EntitySet="Cart_Items" />
           </AssociationSet>
+<<<<<<< Updated upstream
           <EntitySet Name="Addresses" EntityType="FF_FastFoodModel.Address" />
           <AssociationSet Name="FK__Address__custome__4F47C5E3" Association="FF_FastFoodModel.FK__Address__custome__4F47C5E3">
             <End Role="Customer" EntitySet="Customers" />
@@ -708,6 +749,10 @@
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+=======
+          <EntitySet Name="Banners" EntityType="FF_FastFoodModel.Banner" />
+          <EntitySet Name="sysdiagrams" EntityType="FF_FastFoodModel.sysdiagram" />
+>>>>>>> Stashed changes
         </EntityContainer>
         <EntityType Name="Cart">
           <Key>
@@ -769,11 +814,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< Updated upstream
         <EntityType Name="Address">
+=======
+        <EntityType Name="Banner">
+>>>>>>> Stashed changes
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+<<<<<<< Updated upstream
           <Property Name="street" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ward" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="district" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -873,6 +923,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+=======
+          <Property Name="bannerIMG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="linkURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="seo_title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="seo_descript" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="seo_keywords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="slug" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="start_Date" Type="DateTime" Precision="3" />
+          <Property Name="end_Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+>>>>>>> Stashed changes
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -896,6 +969,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="FF_FastFoodModel.Category">
               <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="category_name" ColumnName="category_name" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -1027,6 +1101,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+<<<<<<< Updated upstream
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="FF_FastFoodModel.Address">
               <MappingFragment StoreEntitySet="Addresses">
@@ -1037,10 +1112,26 @@
                 <ScalarProperty Name="district" ColumnName="district" />
                 <ScalarProperty Name="ward" ColumnName="ward" />
                 <ScalarProperty Name="street" ColumnName="street" />
+=======
+          <EntitySetMapping Name="Banners">
+            <EntityTypeMapping TypeName="FF_FastFoodModel.Banner">
+              <MappingFragment StoreEntitySet="Banner">
+                <ScalarProperty Name="end_Date" ColumnName="end_Date" />
+                <ScalarProperty Name="start_Date" ColumnName="start_Date" />
+                <ScalarProperty Name="slug" ColumnName="slug" />
+                <ScalarProperty Name="seo_keywords" ColumnName="seo_keywords" />
+                <ScalarProperty Name="seo_descript" ColumnName="seo_descript" />
+                <ScalarProperty Name="seo_title" ColumnName="seo_title" />
+                <ScalarProperty Name="linkURL" ColumnName="linkURL" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="bannerIMG" ColumnName="bannerIMG" />
+>>>>>>> Stashed changes
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+<<<<<<< Updated upstream
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="FF_FastFoodModel.Order">
               <MappingFragment StoreEntitySet="Orders">
@@ -1051,6 +1142,16 @@
                 <ScalarProperty Name="order_date" ColumnName="order_date" />
                 <ScalarProperty Name="customer_id" ColumnName="customer_id" />
                 <ScalarProperty Name="order_id" ColumnName="order_id" />
+=======
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="FF_FastFoodModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+>>>>>>> Stashed changes
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

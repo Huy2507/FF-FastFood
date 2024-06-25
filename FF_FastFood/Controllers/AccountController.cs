@@ -27,10 +27,10 @@ namespace FF_Fastfood.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Xử lý đăng nhập, ví dụ: kiểm tra thông tin đăng nhập trong cơ sở dữ liệu
                 var user = AuthenticateUser(model.Username, model.Password);
                 if (user != null)
                 {
+<<<<<<< Updated upstream
                     var cus = db.Customers.FirstOrDefault(a=> a.account_id == user.account_id);
                     // Đăng nhập thành công
                     // Thiết lập session hoặc cookie để lưu trữ thông tin đăng nhập
@@ -39,15 +39,21 @@ namespace FF_Fastfood.Controllers
                     userCookie.Values["UserId"] = user.account_id.ToString();
                     userCookie.Expires = DateTime.Now.AddHours(1); // Cookie hết hạn sau 1 giờ
                     Response.Cookies.Add(userCookie);
+=======
+                    // Đăng nhập thành công, lưu thông tin người dùng vào session
+                    Session["UserId"] = user.account_id; // Đây là một ví dụ, có thể sử dụng user.customer_id tùy thuộc vào cách bạn thiết kế
+
+>>>>>>> Stashed changes
                     return RedirectToAction("Index", "Food");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "!! Tên đăng nhập hoặc mật khẩu không đúng.");
+                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
                 }
             }
             return View(model);
         }
+
 
         // GET: Account/SignUp
         [HttpGet]

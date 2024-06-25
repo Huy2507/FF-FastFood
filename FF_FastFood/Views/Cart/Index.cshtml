@@ -1,0 +1,138 @@
+﻿@model FF_Fastfood.Models.Cart
+
+@{
+    ViewBag.Title = "Giỏ Hàng";
+}
+
+<div class="container page_cart">
+    <h2 class="text-center text-success">Giỏ Hàng Của Bạn</h2>
+    @if (Model != null && Model.Cart_Items.Any())
+    {
+        <table class="table">
+            <thead class="table-success rounded-thead">
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Tên</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Cart_Items)
+                {
+                    <tr data-cart-item-id="@item.cart_item_id">
+                        <td><img src="@item.Food.image_url" alt="@item.Food.name" width="50" /></td>
+                        <td>@item.Food.name</td>
+                        <td class="Upd-Del">
+                            <div style="display:inline-flex">
+                                <form class="update-quantity-form" method="post" action="@Url.Action("UpdateQuantity", "Cart")">
+                                    <input type="hidden" name="cartItemId" value="@item.cart_item_id" />
+                                    <div class="input-group input-quantity">
+                                        <button type="button" name="changeQuantity" value="-" class="btn btn-outline-secondary btn-sm btn-update-quantity">-</button>
+                                        <input type="text" name="quantity" value="@item.quantity" class="form-control text-center" readonly style="width: 50px;" />
+                                        <button type="button" name="changeQuantity" value="+" class="btn btn-outline-secondary btn-sm btn-update-quantity">+</button>
+                                    </div>
+                                </form>
+                                <form class="remove-item-form" method="post" action="@Url.Action("RemoveItem", "Cart")">
+                                    <input type="hidden" name="cartItemId" value="@item.cart_item_id" />
+                                    <button type="button" class="btn btn-danger ms-2 btn-remove-item">Xóa</button>
+                                </form>
+                            </div>
+                        </td>
+                        <td>@item.Food.price.ToString("N0") đ</td>
+                        <td class="item-total-price">@((item.Food.price * item.quantity).ToString("#,##0 đ"))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="d-flex align-items-center flex-column">
+            <p class="fw-bold">Tổng tiền: <span class="total-cart-price">@Model.Cart_Items.Sum(i => i.Food.price * i.quantity).ToString("N0")</span> đ</p>
+            <a href="/Order/PlaceOrder" class="btn btn-primary">Đặt hàng</a>
+        </div>
+    }
+    else
+    {
+        <div class="mt-5 d-flex flex-column align-items-center">
+            <p>Giỏ hàng của bạn đang trống.</p>
+            <a href="/Food/Index" class="btn btn-success mt-5">Chọn Món Ngay Nào!</a>
+        </div>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $('.btn-update-quantity').on('click', function (e) {
+            e.preventDefault();
+
+            var form = $(this).closest('form');
+            var changeQuantity = $(this).val();
+            var cartItemId = form.find('input[name="cartItemId"]').val();
+
+            $.ajax({
+                type: 'POST',
+                url: form.attr('action'),
+                data: {
+                    cartItemId: cartItemId,
+                    changeQuantity: changeQuantity
+                },
+                success: function (response) {
+                    if (response) {
+                        // Cập nhật số lượng
+                        var quantityInput = form.find('input[name="quantity"]');
+                        quantityInput.val(response.quantity);
+
+                        // Cập nhật tổng tiền của mặt hàng
+                        var itemTotalPriceElement = form.closest('tr').find('.item-total-price');
+                        itemTotalPriceElement.text(response.itemTotalPrice.toLocaleString() + ' đ');
+
+                        // Cập nhật tổng tiền của giỏ hàng
+                        var totalCartPriceElement = $('.total-cart-price');
+                        totalCartPriceElement.text(response.totalCartPrice.toLocaleString());
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $('.btn-remove-item').on('click', function (e) {
+            e.preventDefault();
+
+            var form = $(this).closest('form');
+            var cartItemId = form.find('input[name="cartItemId"]').val();
+
+            // Hiển thị hộp thoại xác nhận
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+                $.ajax({
+                    type: 'POST',
+                    url: form.attr('action'),
+                    data: { cartItemId: cartItemId },
+                    success: function (response) {
+                        if (response.success) {
+                            // Xóa hàng khỏi DOM
+                            form.closest('tr').remove();
+
+                            // Kiểm tra nếu giỏ hàng trống
+                            if (response.isEmpty == 0) {
+                                $('.container.page_cart').html('<h2 class="text-center text-success">Giỏ Hàng Của Bạn</h2>');
+                                $('.container.page_cart').append('<div class="mt-5 d-flex flex-column align-items-center"><p> Giỏ hàng của bạn đang trống.</p ><a href="/Food/Index" class="btn btn-success mt-5">Chọn Món Ngay Nào!</a></div > ');
+                            } else {
+                                // Cập nhật tổng tiền của giỏ hàng
+                                var totalCartPriceElement = $('.total-cart-price');
+                                totalCartPriceElement.text(response.totalCartPrice.toLocaleString());
+                            }
+                        } else {
+                            console.log(response.message);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+
+    });
+
+</script>
