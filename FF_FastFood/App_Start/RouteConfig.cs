@@ -15,7 +15,7 @@ namespace FF_Fastfood
 
             routes.MapRoute(
                 name: "FoodBySlug",
-                url: "Food/{slug}",
+                url: "thuc-don/{slug}",
                 defaults: new { controller = "Food", action = "Index", slug = UrlParameter.Optional }
             );
 

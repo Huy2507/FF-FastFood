@@ -126,7 +126,18 @@ namespace FF_Fastfood.Controllers
 
         private int GetCartIdForCurrentUser()
         {
-            var userId = Session["UserID"];
+            // Lấy giá trị UserId từ Cookie
+            var userCookie = Request.Cookies["UserCookie"];
+            int? userId = null;
+
+            if (userCookie != null)
+            {
+                int parsedUserId;
+                if (int.TryParse(userCookie.Values["UserId"], out parsedUserId))
+                {
+                    userId = parsedUserId;
+                }
+            }
             if (userId == null)
             {
                 throw new InvalidOperationException("User is not logged in, please login and try again.");

@@ -24,11 +24,11 @@ namespace FF_Fastfood.Models
         public Nullable<int> account_id { get; set; }
         public string name { get; set; }
         public string phone { get; set; }
+        public string email { get; set; }
         public string vehicle_info { get; set; }
         public string status { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
         public Nullable<System.DateTime> updated_at { get; set; }
-        public string email { get; set; }
     
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

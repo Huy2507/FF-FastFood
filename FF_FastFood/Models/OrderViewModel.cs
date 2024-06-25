@@ -6,7 +6,7 @@ using System.Web;
 
 namespace FF_Fastfood.Models
 {
-    public class OrderViewModel
+    public class OrderViewModel1
     {
         [Required]
         public string CustomerName { get; set; }

@@ -12,7 +12,19 @@ public class CartController : Controller
     [HttpPost]
     public JsonResult AddToCart(int foodId)
     {
-        var userId = Session["UserId"] as int?;
+        // Lấy giá trị UserId từ Cookie
+        var userCookie = Request.Cookies["UserCookie"];
+        int? userId = null;
+
+        if (userCookie != null)
+        {
+            int parsedUserId;
+            if (int.TryParse(userCookie.Values["UserId"], out parsedUserId))
+            {
+                userId = parsedUserId;
+            }
+        }
+
         if (userId == null)
         {
             return Json(new { success = false, message = "User is not logged in, please login to continue!" });
@@ -126,8 +138,19 @@ public class CartController : Controller
                 dbContext.Cart_Items.Remove(cartItem);
                 dbContext.SaveChanges();
             // Kiểm tra số lượng mục hàng còn lại trong giỏ hàng
-            var userid = Session["UserID"];
-            var cus = dbContext.Customers.FirstOrDefault(c => c.account_id.ToString() == userid.ToString());
+            // Lấy giá trị UserId từ Cookie
+            var userCookie = Request.Cookies["UserCookie"];
+            int? userId = null;
+
+            if (userCookie != null)
+            {
+                int parsedUserId;
+                if (int.TryParse(userCookie.Values["UserId"], out parsedUserId))
+                {
+                    userId = parsedUserId;
+                }
+            }
+            var cus = dbContext.Customers.FirstOrDefault(c => c.account_id.ToString() == userId.ToString());
 
             var cart = dbContext.Carts.FirstOrDefault(c => c.customer_id == cus.customer_id );
             var remainingItemsCount = dbContext.Cart_Items.Count(c => c.cart_id == cart.cart_id);
@@ -142,7 +165,18 @@ public class CartController : Controller
 
     public ActionResult Index()
     {
-        var userId = Session["UserId"] as int?;
+        // Lấy giá trị UserId từ Cookie
+        var userCookie = Request.Cookies["UserCookie"];
+        int? userId = null;
+
+        if (userCookie != null)
+        {
+            int parsedUserId;
+            if (int.TryParse(userCookie.Values["UserId"], out parsedUserId))
+            {
+                userId = parsedUserId;
+            }
+        }
         if (userId == null)
         {
             return RedirectToAction("Login", "Account");

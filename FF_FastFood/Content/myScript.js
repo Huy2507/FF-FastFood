@@ -73,7 +73,7 @@
 
     var navbarHeight = $('.navbar').outerHeight();
     $('a[href^="#"]').on('click', function (e) {
-
+        e.preventDefault();
         // Lấy id của phần tử mục tiêu (category_name)
         var target = this.hash;
 
@@ -101,7 +101,7 @@
 
     /* Login Sign Up End */
 
-<<<<<<< Updated upstream
+
     /* My Account */
 
     $('.listaction-myaccount li a').on('click', function (e) {
@@ -188,7 +188,7 @@
     });
 
     /* My Account End */
-=======
+
 
     /* Swiper Begin */
     const scrollRevealOption = {
@@ -256,5 +256,4 @@
         }
     });
     /* Swiper End */
->>>>>>> Stashed changes
 });
