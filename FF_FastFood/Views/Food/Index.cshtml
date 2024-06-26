@@ -12,12 +12,12 @@
             <div class="d-flex overflow-hidden" style="margin-left: 40px; margin-right: 40px; width: calc(100% - 80px);">
                 <ul id="category-list" class="navbar-nav nav1 me-auto mb-lg-0 fw-bold flex-row">
                     <li class="nav-item col-5 col-sm-3 col-md-2 p-0">
-                        <a class="nav-link w-100" href="#">Tất cả</a>
+                        <a class="nav-link w-100 scroll-link" href="tat-ca-cac-mon">Tất cả</a>
                     </li>
                     @foreach (var category in Model.Categories)
                     {
                         <li class="nav-item col-5 col-sm-3 col-md-2 p-0">
-                            <a class="nav-link w-100" href="@Url.Action("Index", "Food", new { slug = category.slug })" data-target="@category.slug">@category.category_name</a>
+                            <a class="nav-link scroll-link w-100" href="/thuc-don/#@category.slug" data-target="@category.slug">@category.category_name</a>
                         </li>
                     }
                 </ul>
@@ -62,18 +62,63 @@
         </div>
     </div>
 </div>
+<style>
+    .toast {
+        opacity: 0.9 !important; /* Thiết lập độ trong suốt ở đây (0.0 - 1.0) */
+    }
+</style>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var slug = '@slug';
-        if (slug) {
-            var element = document.getElementById(slug);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-                // Dịch lên 100px nếu cần
-                window.scrollTo(0, element.offsetTop - 100);
+    $(document).ready(function () {
+        // Lưu trữ đối tượng history.state để theo dõi targetId đã click
+        var historyState = {
+            targetId: null
+        };
+
+        // Xử lý sự kiện click cho mục trong navbar
+        $('.navbar-nav a.nav-link.scroll-link').on('click', function (e) {
+            e.preventDefault();
+
+            var targetId = $(this).data('target'); // Lấy targetId từ data attribute
+
+            if (targetId && targetId !== historyState.targetId) {
+                var targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    // Cuộn đến vị trí của phần tử
+                    $('html, body').animate({
+                        scrollTop: $(targetElement).offset().top - 100
+                    }, 10);
+
+                    // Cập nhật targetId mới
+                    historyState.targetId = targetId;
+
+                    // Cập nhật URL mới
+                    updateURL(historyState);
+                }
             }
+        });
+
+        // Hàm cập nhật URL với history.replaceState
+        function updateURL(state) {
+            var newPath = '/thuc-don' + '/' + state.targetId;
+            history.replaceState(state, null, newPath);
         }
+
+        // Xử lý khi popstate xảy ra (Back/Forward button)
+        window.onpopstate = function (event) {
+            if (event.state && event.state.targetId) {
+                historyState.targetId = event.state.targetId;
+
+                // Đảm bảo rằng targetId đã click sẽ cuộn đến vị trí tương ứng
+                var targetElement = document.getElementById(historyState.targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        };
     });
+
+
 function addToCart(foodId) {
     $.ajax({
         type: "POST",
@@ -81,7 +126,24 @@ function addToCart(foodId) {
         data: { foodId: foodId },
         success: function (response) {
             if (response.success) {
-                alert("Thêm vào giỏ hàng thành công!");
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                toastr.success("Món đã được thêm vào giỏ hàng!", "Thành công");
             } else {
                 alert(response.message);
             }
@@ -92,6 +154,7 @@ function addToCart(foodId) {
     });
 }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
 

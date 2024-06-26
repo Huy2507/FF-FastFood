@@ -33,6 +33,11 @@
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
     </div>
+    <style>
+        .toast {
+            opacity: 0.9 !important; /* Thiết lập độ trong suốt ở đây (0.0 - 1.0) */
+        }
+    </style>
     <script>
         function addToCart(foodId) {
             $.ajax({
@@ -41,7 +46,24 @@
                 data: { foodId: foodId },
                 success: function (response) {
                     if (response.success) {
-                        alert("Thêm vào giỏ hàng thành công!");
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-bottom-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        };
+                        toastr.success("Món đã được thêm vào giỏ hàng!", "Thành công");
                     } else {
                         alert(response.message);
                     }
@@ -52,4 +74,5 @@
             });
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </section>
