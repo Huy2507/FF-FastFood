@@ -1,0 +1,55 @@
+﻿@model IEnumerable<FF_Fastfood.Models.Food>
+<section class="popular-section">
+    <div class="td col-sm-12">
+        <h2 class="td-dm-pho-bien">MÓN ĂN ĐƯỢC YÊU THÍCH</h2>
+        <div class="line"></div>
+    </div>
+    <!-- Slider main container -->
+    <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            @foreach (var item in Model)
+            {
+                <div class="swiper-slide">
+                    <div class="store__card card">
+                        <div class="my-card-img">
+                            <img src="@item.image_url" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <div class="big-card-title">
+                                <h4 class="card-title">@item.name</h4>
+                                <h4 class="card-title">@item.price.ToString("#,##0 đ")</h4>
+                            </div>
+                            <p class="card-text">@item.description</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn-them" onclick="addToCart(@item.food_id)">Thêm</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <script>
+        function addToCart(foodId) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddToCart", "Cart")',
+                data: { foodId: foodId },
+                success: function (response) {
+                    if (response.success) {
+                        alert("Thêm vào giỏ hàng thành công!");
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Có lỗi xảy ra. Vui lòng thử lại.");
+                }
+            });
+        }
+    </script>
+</section>

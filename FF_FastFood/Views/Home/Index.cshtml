@@ -1,0 +1,17 @@
+﻿@model FF_Fastfood.Models.HomeViewModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Home</h2>
+@{
+    Html.RenderPartial("_PartialBanner", Model.banners);
+}
+
+@{
+    Html.RenderPartial("_PartialCategory", Model.categories);
+}
+
+@{
+    Html.RenderPartial("_PartialPopularFood", Model.foods);
+}

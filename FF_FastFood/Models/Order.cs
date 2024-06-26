@@ -30,6 +30,7 @@ namespace FF_Fastfood.Models
         public Nullable<int> payment_id { get; set; }
         public Nullable<int> address_id { get; set; }
     
+        public virtual Address Address { get; set; }
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Delivery> Deliveries { get; set; }
@@ -37,6 +38,5 @@ namespace FF_Fastfood.Models
         public virtual ICollection<Order_Items> Order_Items { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }
-        public virtual Address Address { get; set; }
     }
 }

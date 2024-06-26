@@ -267,68 +267,80 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyAccountController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Banner.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_Items.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChefViewModels.cs" />
     <Compile Include="Models\Customer.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Deliverer.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Delivery.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FF_FastFood.Context.cs">
+    <Compile Include="Models\Food.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <!--mới-->
+    <!--mới-->
+    <Compile Include="Models\FoodViewModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FF_FastFood.Context.tt</DependentUpon>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FF_FastFood.cs">
+    <Compile Include="Models\Model1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FF_FastFood.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FF_FastFood.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Food.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FoodViewModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyAccountViewModels.cs" />
     <Compile Include="Models\Order.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\Order_Items.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Payment.cs">
-      <DependentUpon>FF_FastFood.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlaceOrderViewModel.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmailService.cs" />
@@ -384,6 +396,14 @@
     <Content Include="images\Food\drink-tra-dao.jpg" />
     <Content Include="images\Food\gachiencay.jpg" />
     <Content Include="images\Food\gachienmam.jpg" />
+    <Content Include="images\CategoryFood\burger.jpg" />
+    <Content Include="images\CategoryFood\drink.jpg" />
+    <Content Include="images\CategoryFood\Ga_ran.jpg" />
+    <Content Include="images\CategoryFood\pizza.jpg" />
+    <Content Include="images\CategoryFood\pizza2.jpg" />
+    <Content Include="images\CategoryFood\pizza3.jpg" />
+    <Content Include="images\CategoryFood\pizza4.jpg" />
+    <Content Include="images\CategoryFood\snack.jpg" />
     <Content Include="images\Food\GaChienXu.jpg" />
     <Content Include="images\Food\garansotbbq.jpg" />
     <Content Include="images\Food\pizza-dac-biet.jpg" />
@@ -406,15 +426,15 @@
     <Content Include="images\footer.jpg" />
     <Content Include="images\login.jpg" />
     <Content Include="images\logo.png" />
-    <Content Include="Models\FF_FastFood.Context.tt">
+    <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FF_FastFood.edmx</DependentUpon>
-      <LastGenOutput>FF_FastFood.Context.cs</LastGenOutput>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FF_FastFood.tt">
+    <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FF_FastFood.edmx</DependentUpon>
-      <LastGenOutput>FF_FastFood.cs</LastGenOutput>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -479,8 +499,15 @@
     <Content Include="Views\Chef\_OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Home\" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_PartialBanner.cshtml" />
+    <Content Include="Views\Shared\_PartialCategory.cshtml" />
+    <Content Include="Views\Shared\_PartialPopularFood.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Order\PlaceOrder.cshtml" />
+    <Content Include="Views\Order\OrderSuccess.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />

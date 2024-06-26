@@ -5,15 +5,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    @Scripts.Render("~/Content/myScript.js")
-    <script src="https://kit.fontawesome.com/f02f65c258.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
     @Styles.Render("~/Content/style.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Load jQuery first -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://kit.fontawesome.com/f02f65c258.js" crossorigin="anonymous"></script>
+
+    <!-- Load other scripts -->
+    @Scripts.Render("~/Content/myScript.js")
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
 
 </head>
@@ -21,7 +26,9 @@
     <header>
         <nav class="navbar navbar-expand-md my-nav p-0">
             <div id="div_container" class="container-fluid bg-light my-nb h-100">
-                <img src="~/images/logo.png" class="d-flex:float-lg-start my-logo ms-4" alt="">
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="~/images/logo.png" class="d-flex:float-lg-start my-logo ms-4" alt="">
+                </a>
                 <button class="navbar-toggler my-toggler-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span>
                         <i class="fa-solid fa-list fa-lg"></i>
@@ -49,7 +56,7 @@
                         <i class="fa-solid fa-user"></i>
                     </a>
 
-                    <a class="text-decoration-none fs-3 icon-1" href="@Url.Action("Index", "Home")">
+                    <a class="text-decoration-none fs-3 icon-1" href="@Url.Action("Index", "Cart")">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a>
                 </div>

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<FF_Fastfood.Models.Category>
+<section class="section-dm-mon-an row">
+    <div class="td col-sm-12">
+        <h2 class="td-dm-mon-an">DANH MỤC MÓN ĂN</h2>
+        <div class="line"></div>
+    </div>
+    <div class="big-card row">
+        @foreach (var item in Model)
+        {
+            <div class="card col-sm-12 col-md-6 col-lg-3">
+                <a href="@Url.Action("Index", "Food", new { slug = item.slug })" style="text-decoration:none">
+                    <div class="my-card-img">
+                        <img src="@item.IMG_URL" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-dark fw-bold">@item.category_name <i class="fa-solid fa-angle-right"></i></small>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</section>

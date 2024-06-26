@@ -12,7 +12,7 @@ namespace FF_Fastfood.Controllers
     public class FoodController : Controller
     {
         // GET: Food
-        public ActionResult Index()
+        public ActionResult Index(string slug)
         {
             using (FF_FastFoodEntities db = new FF_FastFoodEntities())
             {
@@ -41,8 +41,11 @@ namespace FF_Fastfood.Controllers
                     Items = foodItems
                 };
 
+                ViewBag.Slug = slug;
+
                 return View(foodViewModel);
             }
         }
+
     }
 }

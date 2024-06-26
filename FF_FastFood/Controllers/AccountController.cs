@@ -27,10 +27,10 @@ namespace FF_Fastfood.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Xử lý đăng nhập, ví dụ: kiểm tra thông tin đăng nhập trong cơ sở dữ liệu
                 var user = AuthenticateUser(model.Username, model.Password);
                 if (user != null)
                 {
+
                     var cus = db.Customers.FirstOrDefault(a=> a.account_id == user.account_id);
                     // Đăng nhập thành công
                     // Thiết lập session hoặc cookie để lưu trữ thông tin đăng nhập
@@ -43,11 +43,12 @@ namespace FF_Fastfood.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "!! Tên đăng nhập hoặc mật khẩu không đúng.");
+                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
                 }
             }
             return View(model);
         }
+
 
         // GET: Account/SignUp
         [HttpGet]
