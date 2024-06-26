@@ -855,7 +855,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FF_FastFoodEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="FF_FastFoodEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="Banners" EntityType="Self.Banner" />
@@ -937,7 +937,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FF_FastFoodModelStoreContainer" CdmEntityContainer="FF_FastFoodEntities1">
+        <EntityContainerMapping StorageEntityContainer="FF_FastFoodModelStoreContainer" CdmEntityContainer="FF_FastFoodEntities">
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="FF_FastFoodModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
