@@ -1,0 +1,64 @@
+﻿@using FF_Fastfood.Models;
+
+<div class="pt-4">
+    <a class="text-decoration-none" href="@Url.Action("Foods", "Chef")">
+        <i class="fa-solid fa-arrow-left fs-4" style="color: black;"></i>
+    </a>
+</div>
+
+<h1 class="pt-4 pb-3">Sửa món ăn</h1>
+<div>
+    @using (Html.BeginForm("Edit", "Chef", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="food_id" value="@Model.Food.food_id">
+        <div class="form-group">
+            <input class="col-12 mb-2 w-100 input-login" type="text" name="name" id="name" placeholder=" " value="@Model.Food.name" required>
+            <label for="name" class="input-label">Tên món ăn</label>
+        </div>
+        <div class="form-group">
+            <input class="col-12 mb-2 w-100 input-login" type="text" name="description" id="decription" placeholder=" " value="@Model.Food.description" required>
+            <label for="decription" class="input-label">Mô tả</label>
+        </div>
+        <div class="form-group">
+            <input class="col-12 mb-2 w-100 input-login" type="text" name="price" id="price" placeholder=" " value="@Model.Food.price" required>
+            <label for="price" class="input-label">Giá</label>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="category_id" name="category_id" required>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.category_id" @(Model.Food.category_id == category.category_id ? "selected" : "")>@category.category_name</option>
+                }
+            </select>
+
+        </div>
+        <div class="form-group">
+            <input class="col-12 mb-2 w-100 input-login" type="text" name="image_url" id="image_url" placeholder=" " value="@Model.Food.image_url" required>
+            <label for="image_url" class="input-label">Hình ảnh</label>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="enable" name="enable" required>
+                <option value="Yes" @(Model.Food.enable == "Yes" ? "selected" : "")>Yes</option>
+                <option value="No" @(Model.Food.enable == "No" ? "selected" : "")>No</option>
+            </select>
+
+        </div>
+        <div class="form-group">
+            <input class="col-12 mb-2 w-100 input-login" type="text" name="seo_title" id="seo_title" placeholder=" " value="@Model.Food.seo_title" required>
+            <label for="seo_title" class="input-label">SEO Title</label>
+        </div>
+        <div class="form-group">
+            <input class="col-12 mb-2 w-100 input-login" type="text" name="seo_description" id="seo_decription" placeholder=" " value="@Model.Food.seo_description" required>
+            <label for="seo_decription" class="input-label">SEO Decription</label>
+        </div>
+        <div class="form-group">
+            <input class="col-12 mb-2 w-100 input-login" type="text" name="seo_keywords" id="seo_keyword" placeholder=" " value="@Model.Food.seo_keywords" required>
+            <label for="seo_keyword" class="input-label">SEO Keyword</label>
+        </div>
+        <div class="btn-login mb-3">
+            <button type="submit" class="btn m-0">Sửa món ăn</button>
+        </div>
+    }
+</div>
+

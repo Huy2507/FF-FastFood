@@ -20,6 +20,7 @@ namespace FF_Fastfood.Models
             this.Customers = new HashSet<Customer>();
             this.Deliverers = new HashSet<Deliverer>();
             this.Employees = new HashSet<Employee>();
+            this.UserRoles = new HashSet<UserRole>();
         }
     
         public int account_id { get; set; }
@@ -30,6 +31,7 @@ namespace FF_Fastfood.Models
         public Nullable<System.DateTime> updated_at { get; set; }
         public string PasswordResetCode { get; set; }
         public Nullable<System.DateTime> ResetCodeExpiration { get; set; }
+        public bool isActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }
@@ -37,5 +39,7 @@ namespace FF_Fastfood.Models
         public virtual ICollection<Deliverer> Deliverers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

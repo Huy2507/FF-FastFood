@@ -1,9 +1,9 @@
 ﻿using FF_Fastfood.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace FF_Fastfood.Attributes
 {
@@ -18,20 +18,30 @@ namespace FF_Fastfood.Attributes
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-
-            // Lấy thông tin người dùng từ session
-            var user = httpContext.Session["User"] as Account;
-            if (user == null)
+            // Lấy thông tin người dùng từ cookie
+            var userCookie = httpContext.Request.Cookies["UserCookie"];
+            var userId = userCookie.Values["UserId"];
+            if (userCookie == null)
             {
                 return false;
             }
 
-            // Kiểm tra vai trò của người dùng
-            foreach (var role in allowedRoles)
+
+            using (FF_FastFoodEntities db = new FF_FastFoodEntities())
             {
-                if (user.role.Equals(role, StringComparison.OrdinalIgnoreCase))
+                // Lấy các vai trò của người dùng từ cơ sở dữ liệu
+                var userRoles = from ur in db.UserRoles
+                                join r in db.Roles on ur.role_id equals r.RoleId
+                                where ur.account_id.ToString() == userId
+                                select r.RoleName;
+
+                // Kiểm tra vai trò của người dùng
+                foreach (var role in allowedRoles)
                 {
-                    return true;
+                    if (userRoles.Any(r => r.Equals(role, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        return true;
+                    }
                 }
             }
 
@@ -41,9 +51,10 @@ namespace FF_Fastfood.Attributes
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             filterContext.Result = new RedirectToRouteResult(
-                new System.Web.Routing.RouteValueDictionary(
+                new RouteValueDictionary(
                     new { controller = "Account", action = "Login" })
             );
         }
+      
     }
 }

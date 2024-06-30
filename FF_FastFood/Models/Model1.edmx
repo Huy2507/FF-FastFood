@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FF_FastFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FF_FastFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="account_id" />
@@ -17,6 +17,7 @@
           <Property Name="updated_at" Type="datetime" />
           <Property Name="PasswordResetCode" Type="nvarchar" MaxLength="1000" />
           <Property Name="ResetCodeExpiration" Type="datetime" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Addresses">
           <Key>
@@ -142,6 +143,7 @@
           <Property Name="price" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="category_id" Type="int" />
           <Property Name="image_url" Type="nvarchar" MaxLength="255" />
+          <Property Name="enable" Type="nvarchar" MaxLength="10" />
           <Property Name="seo_title" Type="nvarchar" MaxLength="255" />
           <Property Name="seo_description" Type="nvarchar(max)" />
           <Property Name="seo_keywords" Type="nvarchar(max)" />
@@ -184,6 +186,13 @@
           <Property Name="created_at" Type="datetime" />
           <Property Name="updated_at" Type="datetime" />
         </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -193,6 +202,14 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleID" />
+          </Key>
+          <Property Name="UserRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="account_id" Type="int" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__Address__custome__4F47C5E3">
           <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
@@ -374,6 +391,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserRole_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="FF_FastFoodModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
@@ -389,7 +430,9 @@
           <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Address__custome__4F47C5E3" Association="Self.FK__Address__custome__4F47C5E3">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Addresses" EntitySet="Addresses" />
@@ -450,9 +493,16 @@
             <End Role="Addresses" EntitySet="Addresses" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Accounts" Association="Self.FK_UserRole_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FF_FastFoodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -471,6 +521,8 @@
           <NavigationProperty Name="Customers" Relationship="Self.FK__Customers__accou__440B1D61" FromRole="Accounts" ToRole="Customers" />
           <NavigationProperty Name="Deliverers" Relationship="Self.FK__Deliverer__accou__5DCAEF64" FromRole="Accounts" ToRole="Deliverers" />
           <NavigationProperty Name="Employees" Relationship="Self.FK__Employees__accou__3F466844" FromRole="Accounts" ToRole="Employees" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserRoles" Relationship="FF_FastFoodModel.FK_UserRole_Accounts" FromRole="Account" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -621,6 +673,7 @@
           <NavigationProperty Name="Cart_Items" Relationship="Self.FK__Cart_Item__food___1DB06A4F" FromRole="Foods" ToRole="Cart_Items" />
           <NavigationProperty Name="Category" Relationship="Self.FK__Foods__category___4CA06362" FromRole="Foods" ToRole="Categories" />
           <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__food___5441852A" FromRole="Foods" ToRole="Order_Items" />
+          <Property Name="enable" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order_Items">
           <Key>
@@ -931,7 +984,59 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Payments" EntitySet="Payments" />
           </AssociationSet>
+          <EntitySet Name="Roles" EntityType="FF_FastFoodModel.Role" />
+          <EntitySet Name="UserRoles" EntityType="FF_FastFoodModel.UserRole" />
+          <AssociationSet Name="FK_UserRole_Accounts" Association="FF_FastFoodModel.FK_UserRole_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="FF_FastFoodModel.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoles" Relationship="FF_FastFoodModel.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleID" />
+          </Key>
+          <Property Name="UserRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="account_id" Type="Int32" Nullable="false" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="FF_FastFoodModel.FK_UserRole_Accounts" FromRole="UserRole" ToRole="Account" />
+          <NavigationProperty Name="Role" Relationship="FF_FastFoodModel.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_UserRole_Accounts">
+          <End Type="FF_FastFoodModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="FF_FastFoodModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Type="FF_FastFoodModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="FF_FastFoodModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -941,6 +1046,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="FF_FastFoodModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="account_id" ColumnName="account_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
@@ -1078,6 +1184,7 @@
           <EntitySetMapping Name="Foods">
             <EntityTypeMapping TypeName="FF_FastFoodModel.Food">
               <MappingFragment StoreEntitySet="Foods">
+                <ScalarProperty Name="enable" ColumnName="enable" />
                 <ScalarProperty Name="food_id" ColumnName="food_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -1139,6 +1246,23 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="FF_FastFoodModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="FF_FastFoodModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

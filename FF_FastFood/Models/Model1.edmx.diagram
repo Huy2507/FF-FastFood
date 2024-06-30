@@ -16,7 +16,7 @@
         <EntityTypeShape EntityType="FF_FastFoodModel.Delivery" Width="1.5" PointX="9.75" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Employee" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Food" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FF_FastFoodModel.Order_Items" Width="1.5" PointX="9.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Order_Items" Width="1.5" PointX="9.875" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Order" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Payment" Width="1.5" PointX="9.75" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.sysdiagram" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
@@ -35,6 +35,10 @@
         <AssociationConnector Association="FF_FastFoodModel.FK__Order_Ite__food___5441852A" ManuallyRouted="false" />
         <AssociationConnector Association="FF_FastFoodModel.FK__Order_Ite__order__534D60F1" ManuallyRouted="false" />
         <AssociationConnector Association="FF_FastFoodModel.FK__Payments__order___59063A47" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Role" Width="1.5" PointX="6" PointY="17.875" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.UserRole" Width="1.5" PointX="6" PointY="14.375" />
+        <AssociationConnector Association="FF_FastFoodModel.FK_UserRole_Accounts" />
+        <AssociationConnector Association="FF_FastFoodModel.FK_UserRole_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

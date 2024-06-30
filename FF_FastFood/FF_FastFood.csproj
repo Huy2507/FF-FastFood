@@ -272,6 +272,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SlugHelper.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -340,7 +341,13 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlaceOrderViewModel.cs" />
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRole.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -498,6 +505,10 @@
     <Content Include="Views\Chef\PendingOrders.cshtml" />
     <Content Include="Views\Chef\OrderDetails.cshtml" />
     <Content Include="Views\Chef\_OrderDetails.cshtml" />
+    <Content Include="Views\Chef\Foods.cshtml" />
+    <Content Include="Views\Chef\_FilterFoods.cshtml" />
+    <Content Include="Views\Chef\_Create.cshtml" />
+    <Content Include="Views\Chef\_Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />

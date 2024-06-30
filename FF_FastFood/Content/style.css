@@ -43,6 +43,8 @@
 
     .FF_name {
         display: flex !important;
+        text-decoration: none;
+        color: #4c7744;
     }
 
     .a-navbar{
@@ -123,6 +125,11 @@
         transform: translateX(-110%);
     }
 
+        .layout-menu.close {
+            transform: translateX(-110%);
+            transition: 0.3s ease;
+        }
+
     .layout-overlay {
         position: fixed;
         top: 0;
@@ -136,7 +143,7 @@
         z-index: 1099;
     }
 
-    .chef-content {
+    .body-content.chef-content {
         padding-left: 40px !important;
     }
 }
@@ -469,7 +476,7 @@ li {
 
 .input-login {
     border: none;
-    border-bottom: 2px solid #ee5f7a;
+    border-bottom: 2px solid #39c51d;
     width: 100%;
     max-width: none;
     padding: 10px 5px;
@@ -953,8 +960,9 @@ li {
     z-index: 1100;
 }
 
-    .layout-menu.close {
-        transform: translateX(-110%);
+
+    .layout-menu.show {
+        transform: translateX(0%) ;
         transition: 0.3s ease;
     }
 
@@ -1043,9 +1051,32 @@ li {
     background-color: rgba(105, 108, 255, 0.16) !important;
 }
 
+.icon-open-chef-sidebar{
+    font-size: 1.75em;
+}
 
 .chef-content {
-    padding-left: 284px;
+    padding-left: 284px !important;
+}
+
+.order-container {
+    height: 80vh; /* Điều chỉnh chiều cao phù hợp với yêu cầu của bạn */
+    overflow-y: auto;
+}
+
+.order-row, .order-details-row {
+    cursor: pointer;
+}
+
+.order-details-container {
+    background-color: #f8f9fa; /* Màu nền cho chi tiết đơn hàng */
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+
+.order-details-row {
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;   
 }
 
 .order-details-container {
@@ -1055,4 +1086,28 @@ li {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
     margin-top: 10px; /* Khoảng cách với các hàng trên */
 }
+
+.complete-order {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+    .complete-order:hover {
+        background-color: #218838;
+    }
+
+
+.img-foods-chef{
+    height:50px;
+    width:50px;
+}
+tr,th {
+    vertical-align: middle;
+}
+
 /* Chef End */

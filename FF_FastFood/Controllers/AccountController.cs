@@ -30,16 +30,31 @@ namespace FF_Fastfood.Controllers
                 var user = AuthenticateUser(model.Username, model.Password);
                 if (user != null)
                 {
-
+                    var name = "";
                     var cus = db.Customers.FirstOrDefault(a=> a.account_id == user.account_id);
                     // Đăng nhập thành công
+                    if(user.role == "customer")
+                    {
+                        name = cus.name;
+                        HttpCookie userCookie = new HttpCookie("UserCookie");
+                        userCookie.Values["UserName"] = name;
+                        userCookie.Values["UserId"] = user.account_id.ToString();
+                        userCookie.Expires = DateTime.Now.AddHours(1); // Cookie hết hạn sau 1 giờ
+                        Response.Cookies.Add(userCookie);
+                        return RedirectToAction("Index", "Food");
+                    }
+                    else
+                    {
+                        name = user.username;
+                        HttpCookie userCookie = new HttpCookie("UserCookie");
+                        userCookie.Values["UserName"] = name;
+                        userCookie.Values["UserId"] = user.account_id.ToString();
+                        userCookie.Expires = DateTime.Now.AddHours(1); // Cookie hết hạn sau 1 giờ
+                        Response.Cookies.Add(userCookie);
+                        return RedirectToAction("PendingOrders", "Chef");
+                    }
                     // Thiết lập session hoặc cookie để lưu trữ thông tin đăng nhập
-                    HttpCookie userCookie = new HttpCookie("UserCookie");
-                    userCookie.Values["UserName"] = cus.name;
-                    userCookie.Values["UserId"] = user.account_id.ToString();
-                    userCookie.Expires = DateTime.Now.AddHours(1); // Cookie hết hạn sau 1 giờ
-                    Response.Cookies.Add(userCookie);
-                    return RedirectToAction("Index", "Food");
+                    
                 }
                 else
                 {

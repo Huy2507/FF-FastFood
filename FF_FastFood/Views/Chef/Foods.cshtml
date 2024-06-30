@@ -1,0 +1,82 @@
+﻿@model FF_Fastfood.Models.FoodChefViewModel
+
+@{
+    ViewBag.Title = "Foods";
+    Layout = "~/Views/Shared/_LayoutChef.cshtml";
+}
+
+<button class="mt-4 mb-2 navbar-toggler my-toggler-btn btn-open-chef-sidebar d-block d-xl-none" type="button">
+    <span>
+        <i class="fa-solid fa-list fa-lg icon-open-chef-sidebar"></i>
+    </span>
+</button>
+
+<h2 class="pt-2">Foods</h2>
+
+<div class="row m-3">
+    <div class="dropdown col-6">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+            Chọn danh mục
+        </button>
+        <div class="dropdown-menu">
+            <label class="dropdown-item">
+                <input type="radio" name="categoryFilter" value="0" checked /> Tất cả
+            </label>
+            @foreach (var category in Model.Categories)
+            {
+                <label class="dropdown-item">
+                    <input type="radio" name="categoryFilter" value="@category.category_id" /> @category.category_name
+                </label>
+            }
+        </div>
+    </div>
+    <div class="col-6 d-flex justify-content-end align-items-end">
+        <button type="button" class="btn btn-success align-self-end float-right me-3 chef-add-food">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </div>
+    
+</div>
+
+<div class="order-container foodList">
+    <table class="table table-striped text-dark">
+        <tr>
+            <th>
+                <p class="m-0">Hình ảnh</p>
+            </th>
+            <th>
+                <p class="m-0">Tên</p>
+            </th>
+            <th>
+                <p class="m-0">Giá</p>
+            </th>
+            <th>
+                <p class="m-0">Loại</p>
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Foods)
+        {
+            <tr class="chef-food-row" data-food-id="@item.food_id">
+                <td>
+                    <img class="img-fluid rounded-start img-foods-chef" src="@item.image_url" alt="Alternate Text" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    <p class="m-0">@item.price.ToString("N0")đ</p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.category_name)
+                </td>
+                <td>
+                    <button class="btn btn-danger chef-delete-food" data-food-id="@item.food_id">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

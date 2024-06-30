@@ -260,48 +260,177 @@
 
     /* Chef */
 
+    $(window).on('load', function () {
+        if (window.url == "https://localhost:44355/Chef/Foods") {
+            console.log("Clicked item:1", window.url);
+            var thisItem = "#menu-item-2";
+            $(thisItem).addClass('active');
+        };
+    });
+
     $('.menu-link').on('click', function (e) {
-        e.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
-        $('.menu-item').removeClass('active'); // Xóa class active khỏi tất cả các thẻ li
-        $(this).closest('.menu-item').addClass('active'); // Thêm class active vào thẻ li chứa thẻ a được click
+        var thisItem = "#menu-item-2";
+        setTimeout(function () {
+            $('.menu-item').removeClass('active');
+            $(thisItem).addClass('active');
+
+        }, 100);
+        // Đóng menu
+        $('#layout-menu').addClass('close').removeClass('show');
+        $('.layout-overlay').removeClass('show');
+        
     });
 
     $('.layout-menu-toggle-close').on('click', function (e) {
         e.preventDefault();
         $('#layout-menu').addClass('close');
+        $('#layout-menu').removeClass('show');
         $('.layout-overlay').removeClass('show');
+    });
+
+    $('.btn-open-chef-sidebar').on('click', function () {
+        $('#layout-menu').removeClass('close');
+        $('#layout-menu').addClass('show');
+        $('.layout-overlay').addClass('show');
     });
 
     $('.layout-overlay').on('click', function () {
         $('#layout-menu').addClass('close');
+        $('#layout-menu').removeClass('show');
         $(this).removeClass('show');
     });
-
 
     $('.order-row').on('click', function () {
         var orderId = $(this).data('order-id');
         var detailsRow = $('.order-details-row[data-order-id="' + orderId + '"]');
+        var orderDetailsContainer = $('#order-details-' + orderId);
 
         // Đóng tất cả các hàng chi tiết khác
-        $('.order-details-row').not(detailsRow).slideUp();
+        $('.order-details-row').not(detailsRow).slideUp('slow', function () {
+            $(this).find('.order-details-container').html('');
+        });
 
-        // Mở rộng chi tiết của hàng đang chọn
-        detailsRow.slideToggle(function () {
-            if (detailsRow.is(':visible')) {
+        // Nếu hàng chi tiết đang mở, đóng lại
+        if (detailsRow.is(':visible')) {
+            detailsRow.stop(true, true).slideUp(500, function () {
+                orderDetailsContainer.html('');
+            });
+
+        } else {
+            // Nếu hàng chi tiết đang đóng, mở ra và tải dữ liệu
+            detailsRow.stop(true, true).slideDown(500, function () {
                 $.ajax({
                     url: '/Chef/OrderDetails/' + orderId, // Đảm bảo rằng action và controller đúng
                     type: 'GET',
                     success: function (data) {
-                        $('#order-details-' + orderId).html(data);
+                        orderDetailsContainer.html(data);
                     },
                     error: function (xhr, status, error) {
                         console.error('Error fetching order details:', error);
                     }
                 });
+            });
+        }
+    });
+
+    $('.complete-order').on('click', function (e) {
+        e.stopPropagation();
+
+        var orderId = $(this).data('order-id');
+        var $row = $(this).closest('tr.order-row');
+
+        var confirmation = confirm('Bạn có chắc chắn muốn hoàn thành đơn hàng này không?');
+
+        if (confirmation) {
+            $.ajax({
+                url: '/Chef/CompleteOrder/' + orderId,
+                type: 'POST',
+                success: function (response) {
+                    if (response.success) {
+                        $row.hide();
+                    } else {
+                        alert('Không thể hoàn thành đơn hàng. Vui lòng thử lại sau.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error completing order:', error);
+                    alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+                }
+            });
+        }
+    });
+
+    // Xử lý sự kiện khi chọn radio button
+    $('input[name="categoryFilter"]').change(function () {
+        var categoryId = $(this).val(); // Lấy giá trị categoryId được chọn
+
+        // Gửi AJAX request để lọc danh sách món ăn
+        $.ajax({
+            url: '/Chef/FilterFoods',
+            type: 'GET',
+            data: { categoryId: categoryId },
+            success: function (data) {
+                $('.order-container').html(data); // Cập nhật danh sách món ăn trên view
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching filtered foods:', error);
+            }
+        });
+
+    });
+
+    $('.chef-add-food').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/Chef/Create',
+            type: 'GET',
+            success: function (data) {
+                $('.chef-content').html(data);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching filtered foods:', error);
             }
         });
     });
 
+    $('.chef-food-row').on('click', function (e) {
+        var foodId = $(this).data('food-id');
+        $.ajax({
+            url: '/Chef/Edit/' + foodId,
+            type: 'GET',
+            success: function (data) {
+                $('.chef-content').html(data);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching filtered foods:', error);
+            }
+        });
+    })
+
+    $('.chef-delete-food').on('click', function (e) {
+        e.stopPropagation();
+        var foodId = $(this).data('food-id');
+        var $row = $(this).closest('tr.chef-food-row');
+        var confirmation = confirm('Bạn có chắc chắn muốn xóa món này không?');
+
+        if (confirmation) {
+            $.ajax({
+                url: '/Chef/DeleteFood/' + foodId,
+                type: 'POST',
+                success: function (response) {
+                    if (response.success) {
+                        $row.hide();
+                    } else {
+                        alert('Không thể hoàn thành đơn hàng. Vui lòng thử lại sau.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching filtered foods:', error);
+                    alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+                }
+            });
+        }
+    })
 
     /* Chef End */
 });

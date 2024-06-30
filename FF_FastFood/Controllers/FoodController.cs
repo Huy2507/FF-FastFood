@@ -16,16 +16,17 @@ namespace FF_Fastfood.Controllers
         {
             using (FF_FastFoodEntities db = new FF_FastFoodEntities())
             {
-                var foodItems = db.Foods.Select(f => new FoodItem
-                {
-                    food_id = f.food_id,
-                    name = f.name,
-                    price = f.price,
-                    description = f.description,
-                    image_url = f.image_url,
-                    category_name = f.Category.category_name
-                })
-                .ToList();
+                var foodItems = db.Foods.Where(f => f.enable =="Yes")
+                                        .Select(f => new FoodItem
+                                        {
+                                            food_id = f.food_id,
+                                            name = f.name,
+                                            price = f.price,
+                                            description = f.description,
+                                            image_url = f.image_url,
+                                            category_name = f.Category.category_name
+                                        })
+                                        .ToList();
 
                 var foodCategory = db.Categories.Select(c => new FoodCategory
                 {
