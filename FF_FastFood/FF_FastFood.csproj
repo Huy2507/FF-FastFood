@@ -50,6 +50,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.94.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.94.2\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.3\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.3.0\lib\net45\FastMember.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=8.0.6.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.8.0.6\lib\net462\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
     </Reference>
@@ -121,6 +133,14 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.34.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.34.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
@@ -208,6 +228,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -261,13 +282,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RoleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\AuthorizeRoleAttribute.cs" />
+    <Compile Include="ClassForAccount\Account_TK.cs" />
+    <Compile Include="ClassForAccount\FilterAccount.cs" />
+    <Compile Include="ClassForAccount\FindUserByAccId.cs" />
+    <Compile Include="ClassForOrders\FilterOrder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\FoodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -297,6 +324,10 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChartClass\DataForChart.cs" />
+    <Compile Include="Models\ChartClass\FillChartData.cs" />
+    <Compile Include="Models\CheckType.cs" />
+    <Compile Include="Models\ContentForOrder.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
@@ -309,6 +340,7 @@
     <Compile Include="Models\Employee.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeAccount.cs" />
     <Compile Include="Models\FF_FastFood.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -319,6 +351,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FF_FastFood.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FF_FastFood.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Filter\FilterType.cs" />
+    <Compile Include="Models\FindMaxID.cs" />
     <Compile Include="Models\Food.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
@@ -328,25 +367,11 @@
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FF_FastFood.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FF_FastFood.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\MyAccountViewModels.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderDeliveryViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\Order_Items.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
@@ -355,6 +380,8 @@
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlaceOrderViewModel.cs" />
+    <Compile Include="Models\ShipperAccount.cs" />
+    <Compile Include="Models\StaffViewModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>FF_FastFood.tt</DependentUpon>
     </Compile>
@@ -367,6 +394,8 @@
     <Content Include="App_Data\aspnet-FF_Fastfood-20240605013003_log.ldf">
       <DependentUpon>aspnet-FF_Fastfood-20240605013003.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Admin.css" />
+    <Content Include="Content\Admin.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -445,23 +474,13 @@
     <Content Include="images\logo.png" />
     <Content Include="Models\FF_FastFood.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>FF_FastFood.Context.cs</LastGenOutput>
       <DependentUpon>FF_FastFood.edmx</DependentUpon>
+      <LastGenOutput>FF_FastFood.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\FF_FastFood.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FF_FastFood.edmx</DependentUpon>
       <LastGenOutput>FF_FastFood.cs</LastGenOutput>
-      <DependentUpon>FF_FastFood.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FF_FastFood.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FF_FastFood.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -521,6 +540,24 @@
     <Content Include="Views\MyAccount\_OrderDetails.cshtml" />
     <Content Include="Views\MyAccount\Orders.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutPageAdmin.cshtml" />
+    <Content Include="Views\Admin\_ViewStart.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\MenuDetails.cshtml" />
+    <Content Include="Views\Admin\Account.cshtml" />
+    <Content Include="Views\Admin\AccountDetail.cshtml" />
+    <Content Include="Views\Admin\EmployeePartial.cshtml" />
+    <Content Include="Views\Admin\CustomerPartial.cshtml" />
+    <Content Include="Views\Admin\ShipperPartial.cshtml" />
+    <Content Include="Views\Admin\CreateAccShipper.cshtml" />
+    <Content Include="Views\Admin\CreateAccEmployee.cshtml" />
+    <Content Include="Views\Admin\Orders.cshtml" />
+    <Content Include="Views\Admin\OrdersDetail.cshtml" />
+    <Content Include="Views\Admin\Chartcontrol.cshtml" />
+    <Content Include="Views\Admin\Delivery.cshtml" />
+    <Content Include="Views\Admin\DeliveryOrderDetail.cshtml" />
+    <Content Include="Views\Admin\AccountPartial.cshtml" />
+    <Content Include="Views\Admin\AccountUpdateShipper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
@@ -531,7 +568,10 @@
     <Content Include="Views\Order\PlaceOrder.cshtml" />
     <Content Include="Views\Order\OrderSuccess.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Resource\ExportExcel\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />

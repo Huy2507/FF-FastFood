@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FF_FastFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FF_FastFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="account_id" />
@@ -450,7 +450,8 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FF_FastFoodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -466,10 +467,10 @@
           <Property Name="updated_at" Type="DateTime" Precision="3" />
           <Property Name="PasswordResetCode" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="ResetCodeExpiration" Type="DateTime" Precision="3" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Customers" Relationship="Self.FK__Customers__accou__440B1D61" FromRole="Accounts" ToRole="Customers" />
           <NavigationProperty Name="Deliverers" Relationship="Self.FK__Deliverer__accou__5DCAEF64" FromRole="Accounts" ToRole="Deliverers" />
           <NavigationProperty Name="Employees" Relationship="Self.FK__Employees__accou__3F466844" FromRole="Accounts" ToRole="Employees" />
-          <Property Name="isActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -938,7 +939,6 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="FF_FastFoodModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="account_id" ColumnName="account_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
@@ -947,6 +947,7 @@
                 <ScalarProperty Name="updated_at" ColumnName="updated_at" />
                 <ScalarProperty Name="PasswordResetCode" ColumnName="PasswordResetCode" />
                 <ScalarProperty Name="ResetCodeExpiration" ColumnName="ResetCodeExpiration" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

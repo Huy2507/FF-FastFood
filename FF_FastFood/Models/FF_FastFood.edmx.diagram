@@ -4,22 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d2e42ece273b413991775eabc2557932" Name="Diagram1">
-        <EntityTypeShape EntityType="FF_FastFoodModel.Account" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+      <Diagram DiagramId="319aa08f120344c99222f64c29b0237b" Name="Diagram1">
+        <EntityTypeShape EntityType="FF_FastFoodModel.Account" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Address" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FF_FastFoodModel.Banner" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="FF_FastFoodModel.Cart" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FF_FastFoodModel.Cart_Items" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Banner" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Cart" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Cart_Items" Width="1.5" PointX="7.5" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Category" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FF_FastFoodModel.Customer" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FF_FastFoodModel.Deliverer" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FF_FastFoodModel.Delivery" Width="1.5" PointX="9.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FF_FastFoodModel.Employee" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Customer" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Deliverer" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Delivery" Width="1.5" PointX="9.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.Employee" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Food" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Order_Items" Width="1.5" PointX="9.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Order" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="FF_FastFoodModel.Payment" Width="1.5" PointX="9.75" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="FF_FastFoodModel.sysdiagram" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FF_FastFoodModel.sysdiagram" Width="1.5" PointX="9.75" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="FF_FastFoodModel.FK__Customers__accou__440B1D61" ManuallyRouted="false" />
         <AssociationConnector Association="FF_FastFoodModel.FK__Deliverer__accou__5DCAEF64" ManuallyRouted="false" />
         <AssociationConnector Association="FF_FastFoodModel.FK__Employees__accou__3F466844" ManuallyRouted="false" />

@@ -14,7 +14,7 @@ namespace FF_Fastfood.Controllers
     {
         public ActionResult Index(string slug, int? page, string categorySlug = null, string searchTerm = null)
         {
-            using (FF_FastFoodEntities db = new FF_FastFoodEntities())
+            using (FF_FastFoodEntities1 db = new FF_FastFoodEntities1())
             {
                 int pageNumber = page ?? 1;
                 int pageSize = 4; // Set the page size as per your requirement

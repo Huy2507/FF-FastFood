@@ -1,0 +1,31 @@
+﻿@model FF_Fastfood.Models.StaffViewModel
+@{
+    ViewBag.Title = "AccountDetail";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+@{ ViewBag.PageName = "AccountDetail";}
+
+@{ ViewBag.SearchController = "Admin";
+    ViewBag.SearchView = "AccountDetail";}
+
+<h2 class="details_title">Menu Details</h2>
+
+@switch (Model.acc.role)
+{
+    case "staff":
+        @Html.Partial("EmployeePartial", Model.employe)
+
+        break;
+    case "chef":
+        @Html.Partial("EmployeePartial", Model.employe)
+
+        break;
+    case "customer":
+        @Html.Partial("CustomerPartial", Model.custommer)
+
+        break;
+    case "shipper":
+        @Html.Partial("ShipperPartial", Model.shipper)
+
+        break;
+}

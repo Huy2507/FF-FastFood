@@ -1,0 +1,101 @@
+﻿@model PagedList.IPagedList<FF_Fastfood.ClassForAccount.FindUserByCustomId>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+@{ ViewBag.PageName = "Orders";}
+
+@{ ViewBag.SearchController = "Admin";
+    ViewBag.SearchView = "Orders";
+    FF_Fastfood.ClassForOrders.FilterOrder filter = Session["filterOrders"] as FF_Fastfood.ClassForOrders.FilterOrder;
+    String dateTime = " ";
+    if (filter?.order_date != null && filter?.order_date != DateTime.MinValue)
+    {
+        dateTime = filter?.order_date.ToString("MM/dd/yyyy");
+    }
+
+}
+@section BreadFunction{
+    <span>
+        <input type="text" id="datepicker" name="order_date" value="@dateTime">
+
+        <script src="moment.js"></script>
+        <script src="pikaday.js"></script>
+        <script>
+            var picker = new Pikaday({
+                field: document.getElementById('datepicker'),
+                format: 'dd/MM/yyyy',
+                onSelect: function () {
+                    console.log(this.getMoment().format('dd/MM/yyyy'));
+                }
+            });
+
+            // Thiết lập giá trị ban đầu nếu cần
+            var initialDate = moment( 'dd/MM/yyyy');
+            picker.setDate(initialDate.toDate());
+        </script>
+    </span>
+    <span>
+        <select name="status">
+            @Html.Raw(Html.Action("SelectOrderStatus", "Admin", new { sttus = filter?.status }))
+        </select>
+    </span>
+    <span><input type="text" placeholder="Search Customer Name" value="@filter.customerName" name="customerName" /></span>
+    <span><input id="Button1" type="submit" class="btn btn-primary mx-2" value="Search" name="search" /></span>
+}
+<h2>Orders</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Order ID
+        </th>
+        <th>
+            Customer Name
+        </th>
+        <th>
+            Date Order
+        </th>
+        <th>
+            Amount
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.order_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.order_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total_amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "OrdersDetail", "Admin", new { id = @item.order_id }, null) |
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="table-bordered">
+    <span>
+        @Html.PagedListPager(Model, page => Url.Action("Orders", "Admin", new { page = page }))
+    </span>
+</div>
+

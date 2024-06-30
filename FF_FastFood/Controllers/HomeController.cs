@@ -13,8 +13,10 @@ namespace FF_Fastfood.Controllers
 {
     public class HomeController : Controller
     {
-        FF_FastFoodEntities db = new FF_FastFoodEntities();
+
+        FF_FastFoodEntities1 db = new FF_FastFoodEntities1();
         public ActionResult Index(int? pageCategory)
+
         {
             int pageSize = 4; // Số lượng item hiển thị trên mỗi trang
             int pageNumberCategory = (pageCategory ?? 1); // Trang hiện tại của categories, mặc định là 1
