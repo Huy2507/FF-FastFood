@@ -1,4 +1,6 @@
-﻿@model IEnumerable<FF_Fastfood.Models.Category>
+﻿@model PagedList.IPagedList<FF_Fastfood.Models.Category>
+@using PagedList.Mvc;
+
 <section class="section-dm-mon-an row">
     <div class="td col-sm-12">
         <h2 class="td-dm-mon-an">DANH MỤC MÓN ĂN</h2>
@@ -8,7 +10,7 @@
         @foreach (var item in Model)
         {
             <div class="card col-sm-12 col-md-6 col-lg-3">
-                <a href="@Url.Action("Index", "Food", new { slug = item.slug })" style="text-decoration:none">
+                <a href="/thuc-don/#@item.slug" style="text-decoration:none">
                     <div class="my-card-img">
                         <img src="@item.IMG_URL" class="card-img-top" alt="...">
                     </div>
@@ -19,4 +21,13 @@
             </div>
         }
     </div>
+    <div class="text-center dieu-huong">
+        <button class="btn btn-primary" id="firstPageBtn" style="display:none"><i class="fa-solid fa-angles-left"></i></button>
+        @Html.PagedListPager(Model, page => Url.Action("CategoryPage", new { pageCategory = page }))
+        <button class="btn btn-primary" id="lastPageBtn" style="display:none"><i class="fa-solid fa-angles-right"></i></button>
+    </div>
 </section>
+<script>
+    $('li.PagedList-skipToPrevious a').html('<i class="fa-solid fa-angle-left"></i>');
+    $('li.PagedList-skipToNext a').html('<i class="fa-solid fa-angle-right"></i>');
+</script>

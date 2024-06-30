@@ -47,12 +47,28 @@ namespace FF_Fastfood.Controllers
                 var cartItems = dbContext.Cart_Items.Where(c => c.cart_id == cartId).ToList();
                 var totalAmount = cartItems.Sum(item => item.Food.price * item.quantity);
 
+                var customerId = dbContext.Carts.FirstOrDefault(cart => cart.cart_id == cartId).customer_id;
+
+                // Lưu địa chỉ mới nếu có
+                var newAddress = new Address
+                {
+                    street = orderViewModel.NewStreet,
+                    ward = orderViewModel.NewWard,
+                    district = orderViewModel.NewDistrict,
+                    city = orderViewModel.NewCity,
+                    customer_id = customerId
+                };
+
+                dbContext.Addresses.Add(newAddress);
+                dbContext.SaveChanges();
+
                 var order = new Order
                 {
                     customer_id = dbContext.Carts.FirstOrDefault(cart => cart.cart_id == cartId).customer_id,
                     order_date = DateTime.Now,
                     total_amount = totalAmount,
-                    status = "Pending"
+                    status = "Pending",
+                    address_id = newAddress.id // Set địa chỉ mới cho đơn hàng
                 };
 
                 dbContext.Orders.Add(order);

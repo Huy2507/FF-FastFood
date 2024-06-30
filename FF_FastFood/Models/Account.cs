@@ -30,6 +30,7 @@ namespace FF_Fastfood.Models
         public Nullable<System.DateTime> updated_at { get; set; }
         public string PasswordResetCode { get; set; }
         public Nullable<System.DateTime> ResetCodeExpiration { get; set; }
+        public bool isActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }

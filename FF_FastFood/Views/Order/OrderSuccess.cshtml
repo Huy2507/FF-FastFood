@@ -17,12 +17,12 @@
         <p>Order Date: @Model.order_date</p>
         <p>Total Amount: @Model.total_amount.ToString("N0") đ</p>
         <p>Phương thức thanh toán: <strong>@Model.Payments.First().payment_method</strong></p>
-        <a href="/Food/Index" class="btn btn-success mt-3 mb-4">Tiếp tục mua sắm</a>
+        <a href="/thuc-don" class="btn btn-success mt-3 mb-4">Tiếp tục mua sắm</a>
     </div>
 
     <div>
         <h3 class="text-success">Order Items</h3>
-        <table class="table">
+        <table class="table text-black">
             <thead>
                 <tr>
                     <th>Ảnh</th>

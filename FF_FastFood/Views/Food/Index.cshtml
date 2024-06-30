@@ -1,64 +1,86 @@
 ﻿@model FF_Fastfood.Models.FoodViewModel
-
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     var slug = ViewBag.Slug as string;
+    var currentPage = ViewBag.Page as int? ?? 1;
+    var categorySlug = ViewBag.CategorySlug as string;
+    var searchTerm = ViewBag.SearchTerm as string;
 }
 
-<div data-bs-spy="scroll" data-bs-target="#category-nav" data-bs-offset="50" class="scrollspy-example ben-trong">
-    <nav id="category-nav" class="navbar navbar-light bg-light p-0">
-        <div class="container">
-            <button id="scroll-left" class="btn position-absolute fw-bold" style="left: 0; font-size: 24px;"><</button>
-            <div class="d-flex overflow-hidden" style="margin-left: 40px; margin-right: 40px; width: calc(100% - 80px);">
-                <ul id="category-list" class="navbar-nav nav1 me-auto mb-lg-0 fw-bold flex-row">
-                    <li class="nav-item col-5 col-sm-3 col-md-2 p-0">
-                        <a class="nav-link w-100 scroll-link" href="tat-ca-cac-mon">Tất cả</a>
-                    </li>
-                    @foreach (var category in Model.Categories)
-                    {
+<div class="container mt-5">
+    <div data-bs-spy="scroll" data-bs-target="#category-nav" data-bs-offset="50" class="scrollspy-example ben-trong">
+        <nav id="category-nav" class="navbar navbar-light bg-light p-0">
+            <div class="container">
+                <button id="scroll-left" class="btn position-absolute fw-bold" style="left: 0; font-size: 24px;"><i class="fa-solid fa-square-caret-left"></i></button>
+                <div class="d-flex overflow-hidden" style="margin-left: 40px; margin-right: 40px; width: calc(100% - 80px);">
+                    <ul id="category-list" class="navbar-nav nav1 me-auto mb-lg-0 fw-bold flex-row">
                         <li class="nav-item col-5 col-sm-3 col-md-2 p-0">
-                            <a class="nav-link scroll-link w-100" href="/thuc-don/#@category.slug" data-target="@category.slug">@category.category_name</a>
+                            <a class="nav-link w-100 scroll-link" href="tat-ca-cac-mon">Tất cả</a>
                         </li>
-                    }
-                </ul>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li class="nav-item col-5 col-sm-3 col-md-2 p-0">
+                                <a class="nav-link scroll-link w-100" href="/thuc-don/#@category.slug" data-target="@category.slug">@category.category_name</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <button id="scroll-right" class="btn position-absolute fw-bold" style="right: 0;font-size: 24px;"><i class="fa-solid fa-square-caret-right"></i></button>
             </div>
-            <button id="scroll-right" class="btn position-absolute fw-bold" style="right: 0;font-size: 24px;">></button>
-        </div>
-    </nav>
+        </nav>
 
-    <div class="container mt-5">
-        <div class="row">
-            @foreach (var category in Model.Categories)
-            {
-                <div id="@category.slug" class="row justify-content-start mt-5">
-                    <h2 class="mt-4">@category.category_name</h2>
-                    @foreach (var item in Model.Items.Where(x => x.category_name == category.category_name))
-                    {
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 mt-4">
-                            <div class="card d-flex m-1 food-card">
-                                <div class="row g-0 food-card">
-                                    <div class="col-4 col-md-12">
-                                        <div class="img-aspect-ratio">
-                                            <img class="card-img-top img-fluid rounded-start" src="@item.image_url" alt="">
+        <div class="row my-sticky-top">
+            <div class="col-md-12">
+                <form class="form-inline mb-4" method="get" action="@Url.Action("Index", "Food")">
+                    <input type="hidden" name="slug" value="@slug" />
+                    <input type="hidden" name="categorySlug" value="@categorySlug" />
+                    <div class="d-flex justify-content-center align-items-center my-search-bar">
+                        <div class="form-group mr-2 d-flex">
+                            <input type="text" class="form-control" name="searchTerm" value="@searchTerm" placeholder="Search for food...">
+                            <button type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="container mt-5">
+            <div class="row">
+                @foreach (var category in Model.Categories)
+                {
+                    <div id="@category.slug" class="row justify-content-start mt-5">
+                        <h2 class="mt-4">@category.category_name</h2>
+                        @foreach (var item in Model.PagedItems[category.slug])
+                        {
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 mt-4">
+                                <div class="card d-flex m-1 food-card">
+                                    <div class="row g-0 food-card">
+                                        <div class="col-4 col-md-12">
+                                            <div class="img-aspect-ratio">
+                                                <img class="card-img-top img-fluid rounded-start" src="@item.image_url" alt="">
+                                            </div>
                                         </div>
-                                        
-                                    </div>
-                                    <div class="col-8 col-md-12 d-flex">
-                                        <div class="card-body flex-grow-1 d-flex flex-column">
-                                            <h4 class="card-title">@item.name</h4>
-                                            <p class="card-text d-none d-md-block">@item.description</p>
-                                            <p class="card-text">@item.price.ToString("N0")đ</p>
-                                            <div class="mt-auto text-end">
-                                                <a href="#" class="btn btn-primary w-100 w-md-100" onclick="addToCart(@item.food_id)">Thêm</a>
+                                        <div class="col-8 col-md-12 d-flex">
+                                            <div class="card-body flex-grow-1 d-flex flex-column">
+                                                <h4 class="card-title">@item.name</h4>
+                                                <p class="card-text d-none d-md-block">@item.description</p>
+                                                <p class="card-text">@item.price.ToString("N0")đ</p>
+                                                <div class="mt-auto text-end">
+                                                    <button class="btn btn-primary w-100 w-md-100" onclick="addToCart(@item.food_id)">Thêm</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        }
+                        <div class="pagination-wrapper">
+                            @Html.PagedListPager(Model.PagedItems[category.slug], pg => Url.Action("Index", new { page = pg, categorySlug = category.slug, slug, searchTerm }))
                         </div>
-                    }
-                </div>
-            }
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
@@ -86,7 +108,7 @@
                 if (targetElement) {
                     // Cuộn đến vị trí của phần tử
                     $('html, body').animate({
-                        scrollTop: $(targetElement).offset().top - 100
+                        scrollTop: $(targetElement).offset().top - 200
                     }, 10);
 
                     // Cập nhật targetId mới
@@ -126,6 +148,7 @@ function addToCart(foodId) {
         data: { foodId: foodId },
         success: function (response) {
             if (response.success) {
+                updateCartCount();
                 toastr.options = {
                     "closeButton": true,
                     "debug": false,
@@ -145,7 +168,24 @@ function addToCart(foodId) {
                 };
                 toastr.success("Món đã được thêm vào giỏ hàng!", "Thành công");
             } else {
-                alert(response.message);
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                toastr.error("Vui Lòng Đăng Nhập Để Tiếp Tục!", "Thất Bại");
             }
         },
         error: function (xhr, status, error) {

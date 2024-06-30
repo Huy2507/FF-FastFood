@@ -685,6 +685,7 @@ li {
 
 .swiper .card-img-top {
     transition: all 0.3s ease;
+    height: 250px;
 }
 
 .swiper .card-img-top:hover {
@@ -751,7 +752,7 @@ li {
 }
 
 .popular-section .card {
-    height: 430px;
+    height: 465px;
 }
 
 .big-card-title {
@@ -777,8 +778,8 @@ li {
 
 .btn-them {
     width: 80%;
-    background-color: #E3002B;
-    border: #E3002B;
+    background-color: #4c7744;
+    border: #4c7744;
     color: white;
 }
 .popular-section .store__card {
@@ -843,6 +844,10 @@ li {
 
     .store__card.card {
         width: 100%;
+    }
+    .cart-count {
+        top: 2px !important;
+        right: 10px !important;
     }
 }
 
@@ -910,5 +915,91 @@ li {
     justify-content:center;
     align-items:center;
 }
+i.fa-solid.fa-square-caret-right, i.fa-solid.fa-square-caret-left {
+    color: #4c7744;
+}
+ul.pagination {
+    max-width: 300px !important;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 5px;
+    margin: 20px auto;
+}
+.dieu-huong{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+}
+#firstPageBtn, #lastPageBtn {
+    color: white;
+    border: 1px solid black;
+    padding: 0px 10px;
+    border-radius: 5px;
+    background: #4c7744;
+    border: none;
+    font-weight: bold;
+    width: 31px;
+    height: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ul.pagination a {
+    text-decoration: none;
+    color: white;
+    border: 1px solid black;
+    padding: 0px 10px;
+    border-radius: 5px;
+    background: #4c7744;
+    border: none;
+    font-weight: bold;
+}
+ul.pagination li.active {
+    color: yellow;
+}
+.my-search-bar .form-group{
+    margin-bottom: unset;
+    margin-right:10px;
+    gap: 10px;
+}
+.my-search-bar{
+    margin-top: 10px
+}
+.my-search-icon{
+    font-weight:bold;
+    border:none;
+}
+.cart-count {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0 5px;
+    font-size: 12px;
+    position: absolute;
+    top: 8px;
+    right: 50px;
+}
+.my-sticky-top {
+    position: sticky;
+    top: 86px;
+    z-index: 1020;
+    background: #379777;
+    border-radius: 0 0 100px 100px;
+}
 /*Order End*/
-
+/*Cart Begin*/
+.page_cart td, .page_cart th, .my-order-div-2 td, .my-order-div-2 th {
+    color: black;
+}
+/*Cart End*/
+/*map begin*/
+#map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+/*map end*/

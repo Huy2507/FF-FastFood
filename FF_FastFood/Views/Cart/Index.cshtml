@@ -36,7 +36,7 @@
                                 </form>
                                 <form class="remove-item-form" method="post" action="@Url.Action("RemoveItem", "Cart")">
                                     <input type="hidden" name="cartItemId" value="@item.cart_item_id" />
-                                    <button type="button" class="btn btn-danger ms-2 btn-remove-item">Xóa</button>
+                                    <button type="button" class="btn btn-danger ms-2 btn-remove-item"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </div>
                         </td>
@@ -55,7 +55,7 @@
     {
         <div class="mt-5 d-flex flex-column align-items-center">
             <p>Giỏ hàng của bạn đang trống.</p>
-            <a href="/Food/Index" class="btn btn-success mt-5">Chọn Món Ngay Nào!</a>
+            <a href="/thuc-don" class="btn btn-success mt-5">Chọn Món Ngay Nào!</a>
         </div>
     }
 </div>
@@ -88,6 +88,7 @@
                         // Cập nhật tổng tiền của giỏ hàng
                         var totalCartPriceElement = $('.total-cart-price');
                         totalCartPriceElement.text(response.totalCartPrice.toLocaleString());
+                        updateCartCount();
                     }
                 },
                 error: function (error) {
@@ -112,7 +113,7 @@
                         if (response.success) {
                             // Xóa hàng khỏi DOM
                             form.closest('tr').remove();
-
+                            updateCartCount();
                             // Kiểm tra nếu giỏ hàng trống
                             if (response.isEmpty == 0) {
                                 $('.container.page_cart').html('<h2 class="text-center text-success">Giỏ Hàng Của Bạn</h2>');

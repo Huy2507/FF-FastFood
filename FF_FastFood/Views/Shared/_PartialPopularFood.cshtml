@@ -46,6 +46,7 @@
                 data: { foodId: foodId },
                 success: function (response) {
                     if (response.success) {
+                        updateCartCount();
                         toastr.options = {
                             "closeButton": true,
                             "debug": false,
@@ -65,7 +66,24 @@
                         };
                         toastr.success("Món đã được thêm vào giỏ hàng!", "Thành công");
                     } else {
-                        alert(response.message);
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-bottom-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        };
+                        toastr.error("Vui Lòng Đăng Nhập Để Tiếp Tục!", "Thất Bại");
                     }
                 },
                 error: function (xhr, status, error) {

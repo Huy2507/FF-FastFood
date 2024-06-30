@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FF_FastFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FF_FastFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="account_id" />
@@ -17,6 +17,7 @@
           <Property Name="updated_at" Type="datetime" />
           <Property Name="PasswordResetCode" Type="nvarchar" MaxLength="1000" />
           <Property Name="ResetCodeExpiration" Type="datetime" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Addresses">
           <Key>
@@ -27,8 +28,6 @@
           <Property Name="ward" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="district" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="city" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="zip_code" Type="nvarchar" MaxLength="20" />
-          <Property Name="country" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="customer_id" Type="int" />
         </EntityType>
         <EntityType Name="Banner">
@@ -451,8 +450,7 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FF_FastFoodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -471,6 +469,7 @@
           <NavigationProperty Name="Customers" Relationship="Self.FK__Customers__accou__440B1D61" FromRole="Accounts" ToRole="Customers" />
           <NavigationProperty Name="Deliverers" Relationship="Self.FK__Deliverer__accou__5DCAEF64" FromRole="Accounts" ToRole="Deliverers" />
           <NavigationProperty Name="Employees" Relationship="Self.FK__Employees__accou__3F466844" FromRole="Accounts" ToRole="Employees" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -481,8 +480,6 @@
           <Property Name="ward" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="district" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="zip_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_id" Type="Int32" />
           <NavigationProperty Name="Customer" Relationship="Self.FK__Address__custome__4F47C5E3" FromRole="Addresses" ToRole="Customers" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Addresses" FromRole="Addresses" ToRole="Orders" />
@@ -941,6 +938,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="FF_FastFoodModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="account_id" ColumnName="account_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
@@ -960,8 +958,6 @@
                 <ScalarProperty Name="ward" ColumnName="ward" />
                 <ScalarProperty Name="district" ColumnName="district" />
                 <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
-                <ScalarProperty Name="country" ColumnName="country" />
                 <ScalarProperty Name="customer_id" ColumnName="customer_id" />
               </MappingFragment>
             </EntityTypeMapping>

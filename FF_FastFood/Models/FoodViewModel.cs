@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,8 @@ namespace FF_Fastfood.Models
     public class FoodViewModel
     {
         public List<FoodCategory> Categories { get; set; }
-        public List<FoodItem> Items { get; set; }
+        public Dictionary<string, IPagedList<FoodItem>> PagedItems { get; set; }
+        public int PageNumber { get; set; }
     }
 
     public class FoodCategory
