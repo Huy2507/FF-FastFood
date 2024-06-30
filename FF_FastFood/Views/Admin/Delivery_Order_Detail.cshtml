@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Delivery_Order_Detail";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    header,
+    footer {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+    nav {
+        background-color: #444;
+        padding: 10px 20px;
+    }
+
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+    .container {
+        padding: 20px;
+    }
+
+    .order-list,
+    .order-details {
+        margin: 20px 0;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #ddd;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    .actions {
+        margin-top: 20px;
+    }
+
+        .actions button {
+            padding: 10px 20px;
+            margin-right: 10px;
+        }
+</style>
+<div class="order-details">
+    <h2>Chi tiết đơn hàng</h2>
+    <h3>Thông tin khách hàng</h3>
+    <p>Tên: Nguyễn Văn A</p>
+    <p>Địa chỉ: 123 Đường ABC, Quận 1</p>
+    <p>Số điện thoại: 0123456789</p>
+    <h3>Thông tin sản phẩm</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Tổng cộng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Sản phẩm 1</td>
+                <td>2</td>
+                <td>100,000 VND</td>
+                <td>200,000 VND</td>
+            </tr>
+            <!-- Thêm các sản phẩm khác tương tự -->
+        </tbody>
+    </table>
+    <h3>Thông tin đơn hàng</h3>
+    <p>Tổng giá trị: 300,000 VND</p>
+    <p>Phí vận chuyển: 20,000 VND</p>
+    <p>Tổng thanh toán: 320,000 VND</p>
+    <div class="actions">
+        <button>Bắt đầu giao hàng</button>
+        <button>Hủy đơn hàng</button>
+        <button>Gọi khách hàng</button>
+    </div>
+</div>
+</div>
+

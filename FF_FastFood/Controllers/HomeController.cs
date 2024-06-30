@@ -12,7 +12,7 @@ namespace FF_Fastfood.Controllers
 {
     public class HomeController : Controller
     {
-        FF_FastFoodEntities db = new FF_FastFoodEntities();
+        FF_FastFoodEntities1 db = new FF_FastFoodEntities1();
         public ActionResult Index()
         {
             

@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 
 public class CartController : Controller
 {
-    private FF_FastFoodEntities dbContext = new FF_FastFoodEntities();
+    private FF_FastFoodEntities1 dbContext = new FF_FastFoodEntities1();
 
     [HttpPost]
     public JsonResult AddToCart(int foodId)

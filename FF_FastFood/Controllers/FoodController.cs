@@ -14,7 +14,7 @@ namespace FF_Fastfood.Controllers
         // GET: Food
         public ActionResult Index(string slug)
         {
-            using (FF_FastFoodEntities db = new FF_FastFoodEntities())
+            using (FF_FastFoodEntities1 db = new FF_FastFoodEntities1())
             {
                 var foodItems = db.Foods.Select(f => new FoodItem
                 {

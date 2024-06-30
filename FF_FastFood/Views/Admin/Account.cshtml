@@ -1,0 +1,159 @@
+﻿@model PagedList.IPagedList<FF_Fastfood.ClassForAccount.Account_TK>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+@{ ViewBag.PageName = "Users";}
+@{ViewBag.url = "Account";}
+@{ ViewBag.SearchType = "Account";}
+@{ ViewBag.SearchController = "Admin";
+    ViewBag.SearchView = "Account";
+    FF_Fastfood.ClassForAccount.FilterAccount filter = Session["filter"] as FF_Fastfood.ClassForAccount.FilterAccount;
+
+}
+
+@section BreadFunction{
+
+    <form action="@Url.Action("Account", "Admin")" method="get">
+
+        <span>
+            <select id="SelectTypeAcc" name="Role">
+                @Html.Action("addSelecRole", "Admin", new { acc = filter?.role })
+            </select>
+        </span>
+        <span>
+            <select id="SelectStatus" name="IsActive">
+                @Html.Action("addSelecStatus", "Admin", new { status = filter?.isActive })
+            </select>
+        </span>
+        <span>
+            <input id="Text1" type="text" placeholder="Search ID" value="@ViewBag.search" name="account_id" />
+        </span>
+        <span>
+            <input id="Button1" type="submit" class="btn btn-primary mx-2" value="Search" name="search" />
+        </span>
+
+    </form>
+}
+<h2>Account</h2>
+
+<span>
+    <select id="SelectTypeUser" onchange="updateCreateLink()">
+        <option value="1">Employee</option>
+        <option value="2">Delivery</option>
+
+    </select>
+</span>
+<span class="div_btnCreate" style="margin-left:0px">
+    <button>
+        <a id="createLink" href="@Url.Action("AddAccount", "Admin", new { id = 1 })">Create</a>
+    </button>
+</span>
+
+<script>
+    function updateCreateLink() {
+        var selectElement = document.getElementById('SelectTypeUser');
+        var selectedValue = selectElement.value;
+        var createLink = document.getElementById('createLink');
+        // Cập nhật href của liên kết với giá trị được chọn
+        createLink.href = '@Url.Action("AddAccount", "Admin")' + '?id=' + selectedValue;
+    }
+</script>
+<div class="container tablecontainer">
+    <table class="table mt-2">
+        <tr>
+            <th>
+                Account Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                User Name
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Role
+            </th>
+            <th>
+                Date Create
+            </th>
+            <th>
+                Date Update
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.account_id</td>
+                <td>
+                    @{
+                        switch (item.role)
+                        {
+                            case "staff":
+
+                                <a href="@Url.Action("AccountDetail","Admin", new {id=@item.account_id, role=@item.role})">@item.name</a>
+
+                                break;
+                            case "chef":
+
+                                <a href="@Url.Action("AccountDetail","Admin", new {id=@item.account_id, role=@item.role})">@item.name</a>
+
+                                break;
+                            case "customer":
+                                <a href="@Url.Action("AccountDetail","Admin", new {id=@item.account_id, role=@item.role})">@item.name</a>
+                                break;
+                            case "shipper":
+                                <a href="@Url.Action("AccountDetail","Admin", new {id=@item.account_id, role=@item.role})">@item.name</a>
+                                break;
+                            case "admin":
+                                <span>Nguyễn Hải Hoài Đức</span>
+                                break;
+                        }
+                    }
+
+                </td>
+                <td>
+                    @item.username
+                </td>
+                <td>
+                    @{
+                        string password = item.password;
+                        if (password.Length > 30)
+                        {
+                            password = password.Substring(0, 30) + "...";
+                        }
+                    }
+                    @password
+                </td>
+                <td>@item.role</td>
+                <td>@(item.updated_at.HasValue ? item.updated_at.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                <td>@(item.created_at.HasValue ? item.created_at.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                <td>
+                    @if (item.isActive == true)
+                    {
+                        <p>Inactive</p>
+                    }
+                    else
+                    {
+                        <p>Active</p>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div class="table-bordered">
+        <span>
+            @Html.PagedListPager(Model, page => Url.Action("Account", "Admin", new { page = page }))
+        </span>
+    </div>
+</div>

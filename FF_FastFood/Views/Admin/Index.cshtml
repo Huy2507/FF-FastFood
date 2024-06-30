@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<FF_Fastfood.Models.Food>
+@using PagedList.Mvc
+
+@{ Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml"; }
+
+@{ ViewBag.PageName = "Menu";}
+
+@{ ViewBag.SearchController = "Admin";
+    ViewBag.SearchView = "Index";
+}
+@section BreadFunction{
+    <span>Choose Food Type</span>
+    <span>
+        <select  id="SelectType" value="HELLO" @*name="category_id"*@ name="type" onchange="loadSelect()">
+            <option value="@ViewBag.type" selected>@ViewBag.typeName </option>
+            @Html.Action("addSelecFood", "Admin")
+        </select>
+    </span>
+    <script>
+        function loadSelect() {
+            let selectType = document.querySelectorAll("#SelectType option");
+            selectType.forEach((typeOption) => {
+                if (typeOption.selected) {
+                    window.location.href = '/Admin/Index?type=' + typeOption.getAttribute("value");
+
+                }
+            });
+        }
+    </script>
+    <span><input id="Text1" type="text" placeholder="Search Food" value="@ViewBag.search" name="search" /></span>
+    <span><input id="Button1" type="submit" class="btn btn-primary mx-2" value="Search" name="search" /></span>
+}
+
+@{ ViewBag.SearchType = "Food";}
+<label class="mx-2 my-1">List Food</label>
+<span class="div_btnCreate" style="margin-left:0px"><button><a href="@Url.Action("MenuDetails","Admin")">Create</a></button></span>
+<div>
+    <div class="container tablecontainer">
+        <table class="table mt-2">
+            <tr>
+                <th class="border-0"><p>Picture</p></th>
+                <th class="border-0"><p>Food Id</p></th>
+                <th class="border-0"><p>Name</p></th>
+                <th class="border-0"><p>Description</p></th>
+                <th class="border-0"><p>Prices</p></th>
+                <th class="border-0"><p>Date Update</p></th>
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img class="avatar" src="@item.image_url"></td>
+                    <td>@item.food_id</td>
+                    <td>
+                        <a href="@Url.Action("MenuDetails","Admin", new {id=@item.food_id})">@item.name</a>
+                    </td>
+                    <td>
+                        @{
+                            string description = item.description;
+                            if (description.Length > 30)
+                            {
+                                description = description.Substring(0, 30) + "...";
+                            }
+                        }
+                        @item.description
+                    </td>
+                    <td>@item.price.ToString("N0")VND</td>
+                    <td>@item.updated_at.Value.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+            @*Ben duoi la nut chuyen trang*@
+        </table>
+        <div>
+            @Html.PagedListPager(Model, page => Url.Action("Index", "Admin", new { page = page }))
+        </div>
+    </div>
+</div>
+
+
+

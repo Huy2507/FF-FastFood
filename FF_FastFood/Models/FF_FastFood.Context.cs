@@ -13,10 +13,10 @@ namespace FF_Fastfood.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FF_FastFoodEntities : DbContext
+    public partial class FF_FastFoodEntities1 : DbContext
     {
-        public FF_FastFoodEntities()
-            : base("name=FF_FastFoodEntities")
+        public FF_FastFoodEntities1()
+            : base("name=FF_FastFoodEntities1")
         {
         }
     

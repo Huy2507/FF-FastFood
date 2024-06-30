@@ -8,7 +8,7 @@ using Microsoft.Ajax.Utilities;
 
 public class MyAccountController : Controller
 {
-    FF_FastFoodEntities db = new FF_FastFoodEntities();
+    FF_FastFoodEntities1 db = new FF_FastFoodEntities1();
     public ActionResult Index()
     {
         if (Request.Cookies["UserCookie"] == null)

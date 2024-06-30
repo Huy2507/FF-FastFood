@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Delivery";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+@{ ViewBag.PageName = "Delivery";}
+@{ViewBag.url = "Index";}
+@{ ViewBag.SearchController = "Admin";
+    ViewBag.SearchView = "Delivery"; }
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao diện người giao hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header,
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #444;
+            padding: 10px 20px;
+        }
+
+            nav a {
+                color: white;
+                margin: 0 10px;
+                text-decoration: none;
+            }
+
+        .container {
+            padding: 20px;
+        }
+
+        .order-list,
+        .order-details {
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .actions {
+            margin-top: 20px;
+        }
+
+            .actions button {
+                padding: 10px 20px;
+                margin-right: 10px;
+            }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Giao diện dành cho người giao hàng</h1>
+    </header>
+    <div class="container">
+        <div class="order-list">
+            <h2>Đơn hàng của tôi</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>Địa chỉ giao hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DH001</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>123 Đường ABC, Quận 1</td>
+                        <td>0123456789</td>
+                        <td>Đang xử lý</td>
+                        <td><a href="/admin/delivery/delivery_order_detail">Xem chi tiết</a> | <button>Bắt đầu giao hàng</button></td>
+                    </tr>
+                    <!-- Thêm các đơn hàng khác tương tự -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
+

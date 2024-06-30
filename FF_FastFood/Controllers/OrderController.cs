@@ -16,7 +16,7 @@ namespace FF_Fastfood.Controllers
 {
     public class OrderController : Controller
     {
-        private FF_FastFoodEntities dbContext = new FF_FastFoodEntities();
+        private FF_FastFoodEntities1 dbContext = new FF_FastFoodEntities1();
         public ActionResult PlaceOrder()
         {
             var cartId = GetCartIdForCurrentUser();
