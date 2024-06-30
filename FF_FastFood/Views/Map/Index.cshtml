@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Xem Đường Đi</h2>
+
+<div id="map"></div>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+<script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiMDk3NjcwMzc1NyIsImEiOiJjbHhxamVsMmkwdjNmMnFyMmMxZjVlZTlvIn0.3LdfVzdyiMiv2tnUHGEX6A';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [106.70161357092013, 10.797311986258348], // Vị trí ban đầu của bản đồ
+            zoom: 15
+        });
+
+        var directions = new MapboxDirections({
+            accessToken: mapboxgl.accessToken,
+            unit: 'metric',
+            profile: 'mapbox/driving-traffic',
+            alternatives: true,
+            controls: {
+                instructions: true
+            }
+        });
+
+        // Thêm control chỉ đường vào bản đồ
+        map.addControl(directions, 'top-left');
+
+        var markers = [];
+
+        // Tạo marker cho điểm đến cố định và hiển thị sẵn khi load trang
+        var destinationMarker = new mapboxgl.Marker({
+            color: '#FF0000' // Màu đỏ cho điểm đến
+        })
+            .setLngLat([106.70310, 10.79667])
+            .addTo(map);
+
+        markers.push(destinationMarker);
+
+        // Cập nhật chỉ đường từ vị trí bắt đầu mặc định đến điểm đến cố định khi load trang
+        // Ví dụ vị trí bắt đầu từ Hà Nội (tọa độ [105.7855574, 21.0168864])
+        directions.setOrigin([106.70310, 10.79667]);
+        directions.setDestination([106.70310, 10.79667]);
+
+        // Lắng nghe sự kiện khi chọn địa điểm từ Geocoder
+        var geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl,
+            marker: false, // Tắt hiển thị marker mặc định
+            placeholder: 'Nhập địa chỉ'
+        });
+
+        // Lắng nghe sự kiện chọn địa điểm từ Geocoder
+        geocoder.on('result', function (e) {
+            // Xóa tất cả các marker cũ và chỉ đường cũ
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].remove();
+            }
+            markers = [];
+
+            var latLng = e.result.geometry.coordinates;
+
+            // Tạo marker mới với vị trí là latLng
+            var marker = new mapboxgl.Marker()
+                .setLngLat(latLng)
+                .addTo(map);
+
+            markers.push(marker); // Thêm marker mới vào mảng markers
+
+            // Cập nhật chỉ đường từ vị trí mới (latLng) đến điểm đến cố định
+            directions.setOrigin(latLng);
+            directions.setDestination([106.70161357092013, 10.797311986258348]);
+        });
+</script>

@@ -1,0 +1,54 @@
+﻿@model FF_Fastfood.Models.OrderDeliveryViewModel
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2 class="text-center my-4">Chi tiết đơn hàng</h2>
+
+<div class="container">
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h3>Thông tin đơn hàng</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Mã đơn hàng:</strong> @Model.OrderId</p>
+            <p><strong>Tên khách hàng:</strong> @Model.CustomerName</p>
+            <p><strong>Địa chỉ giao hàng:</strong> @Model.Street, @Model.Ward, @Model.District, @Model.City</p>
+            <p><strong>Số điện thoại:</strong> @Model.PhoneNumber</p>
+            <p><strong>Trạng thái:</strong> @Model.Status</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h3>Sản phẩm trong đơn hàng</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Tên món ăn</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <tr>
+                            <td>@item.FoodName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price.ToString("#,##0 đ")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="@Url.Action("Delivery", "Admin")" class="btn btn-secondary mb-3">Quay lại</a>
+    </div>
+</div>

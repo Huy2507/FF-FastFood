@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 
 public class CartController : Controller
 {
-    private FF_FastFoodEntities dbContext = new FF_FastFoodEntities();
+    private FF_FastFoodEntities1 dbContext = new FF_FastFoodEntities1();
 
     [HttpPost]
     public JsonResult AddToCart(int foodId)
@@ -161,7 +161,40 @@ public class CartController : Controller
     }
 
 
+    // Thêm Action này
+    public JsonResult CartItemCount()
+    {
+        int cartItemCount = 0;
 
+        // Lấy giá trị UserId từ Cookie
+        var userCookie = Request.Cookies["UserCookie"];
+        int? userId = null;
+
+        if (userCookie != null)
+        {
+            int parsedUserId;
+            if (int.TryParse(userCookie.Values["UserId"], out parsedUserId))
+            {
+                userId = parsedUserId;
+            }
+        }
+
+        if (userId != null)
+        {
+            var customer = dbContext.Customers.FirstOrDefault(c => c.account_id == userId);
+            if (customer != null)
+            {
+                var cart = dbContext.Carts.Include("Cart_Items")
+                                          .FirstOrDefault(c => c.customer_id == customer.customer_id);
+                if (cart != null)
+                {
+                    cartItemCount = cart.Cart_Items.Sum(ci => ci.quantity);
+                }
+            }
+        }
+
+        return Json(new { count = cartItemCount }, JsonRequestBehavior.AllowGet);
+    }
 
     public ActionResult Index()
     {

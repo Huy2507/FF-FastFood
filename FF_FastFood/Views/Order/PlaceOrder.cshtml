@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Đặt Hàng";
+    var totalAmount = Model.CartItems.Sum(item => item.Food.price * item.quantity);
 }
 
 
@@ -17,16 +18,20 @@
                     <input type="text" class="form-control" id="CustomerName" name="CustomerName" value="@Model.Customer.name" required />
                 </div>
                 <div class="form-group">
-                    <label for="Address">Địa Chỉ</label>
-                    @if (Model.Customer.Addresses.Any())
-                    {
-                        var firstAddress = Model.Customer.Addresses.FirstOrDefault();
-                        <input type="text" class="form-control" id="Address" name="Address" value="@firstAddress.FullAddress" required />
-                    }
-                    else
-                    {
-                        <input type="text" class="form-control" id="Address" name="Address" placeholder="No address found" readonly />
-                    }
+                    <label for="NewStreet">Số Nhà & Tên Đường</label>
+                    <input type="text" class="form-control" id="NewStreet" name="NewStreet" required />
+                </div>
+                <div class="form-group">
+                    <label for="NewWard">Phường</label>
+                    <input type="text" class="form-control" id="NewWard" name="NewWard" required />
+                </div>
+                <div class="form-group">
+                    <label for="NewDistrict">Quận/Huyện</label>
+                    <input type="text" class="form-control" id="NewDistrict" name="NewDistrict" required />
+                </div>
+                <div class="form-group">
+                    <label for="NewCity">Thành phố</label>
+                    <input type="text" class="form-control" id="NewCity" name="NewCity" required />
                 </div>
                 <div class="form-group">
                     <label for="Email">Email</label>
@@ -47,7 +52,7 @@
                             Tiền mặt
                         </label>
                     </div>
-                    <div class="form-check">
+                    @*<div class="form-check">
                         <input class="form-check-input" type="radio" name="paymentMethod" id="bank" value="Chuyển Khoản Ngân Hàng">
                         <label class="form-check-label" for="bank">
                             Ngân hàng
@@ -58,7 +63,7 @@
                         <label class="form-check-label" for="eWallet">
                             Ví điện tử
                         </label>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="col-md-12 d-flex flex-column align-items-center pt-3 my-order-div-2">
                     <h3 class="my-title mt-5">Sản Phẩm Trong Giỏ Hàng</h3>
@@ -85,6 +90,9 @@
                             }
                         </tbody>
                     </table>
+                    <div class="total-amount mt-4">
+                        <h4>Tổng tiền: @totalAmount.ToString("#,##0 đ")</h4>
+                    </div>
                     <button type="submit" class="btn btn-primary">Đặt hàng</button>
                 </div>
 

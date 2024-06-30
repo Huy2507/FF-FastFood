@@ -25,8 +25,6 @@ namespace FF_Fastfood.Models
         public string ward { get; set; }
         public string district { get; set; }
         public string city { get; set; }
-        public string zip_code { get; set; }
-        public string country { get; set; }
         public Nullable<int> customer_id { get; set; }
     
         public virtual Customer Customer { get; set; }

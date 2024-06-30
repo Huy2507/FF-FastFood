@@ -1,16 +1,18 @@
 ﻿﻿
 <!DOCTYPE html>
-<html lang="en">
-<body>
-
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        @Styles.Render("~/Content/css")
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-        @Styles.Render("~/Content/style.css")
-        @Scripts.Render("~/bundles/modernizr")
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
+          rel="stylesheet" />
+    @Styles.Render("~/Content/style.css")
+    @Scripts.Render("~/bundles/modernizr")
 
         <!-- Load jQuery first -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -43,16 +45,13 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
                         <li class="nav-item mt-2 mb-2 col-4 col-sm-3 col-md-3 col-lg-2 p-0">
+                            <a href="@Url.Action("Index", "Home")" class="w-100 nav-link p-0 a-navbar">TRANG CHỦ</a>
+                        </li>
+                        <li class="nav-item mt-2 mb-2 col-4 col-sm-3 col-md-3 col-lg-2 p-0">
                             <a href="@Url.Action("Index", "Food")" class="w-100 nav-link p-0 a-navbar">THỰC ĐƠN</a>
                         </li>
                         <li class="nav-item mt-2 mb-2 col-4 col-sm-3 col-md-3 col-lg-2 p-0">
-                            <a href="" class="w-100 nav-link p-0 a-navbar">ƯU ĐÃI</a>
-                        </li>
-                        <li class="nav-item mt-2 mb-2 col-4 col-sm-3 col-md-3 col-lg-2 p-0">
-                            <a href="" class="w-100 nav-link p-0 a-navbar">CÁI GÌ ĐÓ</a>
-                        </li>
-                        <li class="nav-item mt-2 mb-2 col-4 col-sm-3 col-md-3 col-lg-2 p-0">
-                            <a href="" class="w-100 nav-link p-0 a-navbar">CHƯA BIẾT</a>
+                            <a href="@Url.Action("Index", "Map")" class="w-100 nav-link p-0 a-navbar">XEM ĐƯỜNG ĐI</a>
                         </li>
                     </ul>
                 </div>
@@ -63,6 +62,7 @@
 
                     <a class="text-decoration-none fs-3 icon-1" href="@Url.Action("Index", "Cart")">
                         <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="cart-count" class="cart-count">0</span>
                     </a>
                 </div>
             </div>
@@ -118,6 +118,23 @@
             </div>
         </div>
     </footer>
+    <script>
+        function updateCartCount() {
+            $.ajax({
+                url: '@Url.Action("CartItemCount", "Cart")',
+                method: 'GET',
+                success: function (data) {
+                    $('#cart-count').text(data.count);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error getting cart item count:', error);
+                }
+            });
+        }
 
+        $(document).ready(function () {
+            updateCartCount();
+        });
+    </script>
 </body>
 </html>

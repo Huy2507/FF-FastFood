@@ -1,0 +1,60 @@
+﻿@model IEnumerable<FF_Fastfood.ClassForAccount.FindFoodByID>
+
+@{
+    ViewBag.Title = "OrdersDetail";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+@{ ViewBag.PageName = "OrdersDetail";}
+
+@{ ViewBag.SearchController = "Admin";
+    ViewBag.SearchView = "OrdersDetail";}
+@section BreadFunction{
+    @{
+        var idOrde = @ViewBag.orderID;
+    }
+    <table class="table">
+        <label><h2>OrdersDetail</h2></label>
+        <span><a id="btnExportExcel" type="button" class="btn btn-primary" href="@Url.Action("ExportExcel","Admin", new {id=idOrde })">Download</a> </span>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.order_item_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.order_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_item_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+
+            </tr>
+        }
+    </table>
+}

@@ -4,14 +4,69 @@
 }
 
 <h2>Home</h2>
+
 @{
     Html.RenderPartial("_PartialBanner", Model.banners);
 }
 
-@{
-    Html.RenderPartial("_PartialCategory", Model.categories);
-}
+<div id="categories-container">
+    @{
+        Html.RenderPartial("_PartialCategory", Model.categories);
+    }
+</div>
 
 @{
     Html.RenderPartial("_PartialPopularFood", Model.foods);
 }
+<script>
+//chuyển trang ajax
+    $(document).ready(function() {
+        $('#categories-container').on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            $.get(url, function(data) {
+                $('#categories-container').html(data);
+                updatePaginationButtons();
+            });
+        });
+    });
+// Nhảy đến trang đầu tiên
+    $('#categories-container').on('click', '#firstPageBtn', function(e) {
+        e.preventDefault();
+        var url = '@Url.Action("CategoryPage", new { pageCategory = 1 })';
+        $.get(url, function(data) {
+            $('#categories-container').html(data);
+            updatePaginationIcons();
+            updatePaginationButtons();
+        });
+    });
+
+// Nhảy đến trang cuối cùng
+    $('#categories-container').on('click', '#lastPageBtn', function(e) {
+        e.preventDefault();
+        var url = '@Url.Action("CategoryPage", new { pageCategory = Model.categories.PageCount })';
+        $.get(url, function(data) {
+            $('#categories-container').html(data);
+            updatePaginationIcons();
+            updatePaginationButtons();
+        });
+    });
+// Cập nhật trạng thái của các nút phân trang
+    function updatePaginationButtons() {
+        var currentPage = parseInt($('#categories-container .pagination .active').text());
+        var lastPage = '@Model.categories.PageCount';
+
+        if (currentPage === 1) {
+            $('#firstPageBtn').hide();
+        } else {
+            $('#firstPageBtn').show();
+        }
+
+        if (currentPage === parseInt(lastPage)) {
+            $('#lastPageBtn').hide();
+        } else {
+            $('#lastPageBtn').show();
+        }
+    }
+    updatePaginationButtons();
+</script>

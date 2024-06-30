@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Chartcontrol";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+@{ViewBag.PageName = "Chartcontrol";}
+
+@{ViewBag.url = "Index";}
+@{ ViewBag.SearchController = "Admin";
+    ViewBag.SearchView = "Chartcontrol";
+    FF_Fastfood.Models.ChartClass.FillChartData filter = Session["filterChart"] as FF_Fastfood.Models.ChartClass.FillChartData;
+    String dateTimeStart = " ";
+    String dateTimeEnd = " ";
+    if (filter?.timeStartForChart != null && filter?.timeStartForChart != DateTime.MinValue)
+    {
+        dateTimeStart = filter?.timeStartForChart.ToString("MM/dd/yyyy");
+        dateTimeEnd = filter?.timeEndStartForChart.ToString("MM/dd/yyyy");
+    }
+}
+
+<form action="@Url.Action("Chartcontrol","Admin")">
+    <span>
+        <select id="selectTypeChart" name="typeFilter">
+            @Html.Raw(Html.Action("SelectChartType", "Admin", new { type = filter?.typeFilter }))
+        </select>
+    </span>
+    <span>
+        <span class="datepicker hidden">Date Start</span>
+        <input  class="datepicker hidden" type="text" id="datepicker1" name="timeStartForChart" value="@dateTimeStart">
+    </span>
+    <span>
+        <span class="datepicker hidden">Date End</span>
+        <input  class="datepicker hidden" type="text" id="datepicker2" name="timeEndStartForChart" value="@dateTimeEnd">
+    </span>
+    <span>
+        <input id="Button1" type="submit" class="btn btn-primary mx-2" value="Search" name="search" />
+    </span>
+</form>
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
+<script src="moment.js"></script>
+<script src="pikaday.js"></script>
+<script>
+    // Khởi tạo Pikaday cho các input với id 'datepicker1' và 'datepicker2'
+    var picker1 = new Pikaday({
+        field: document.getElementById('datepicker1'),
+        format: 'DD/MM/YYYY',
+        onSelect: function () {
+            console.log(this.getMoment().format('DD/MM/YYYY'));
+        }
+    });
+
+    var picker2 = new Pikaday({
+        field: document.getElementById('datepicker2'),
+        format: 'DD/MM/YYYY',
+        onSelect: function () {
+            console.log(this.getMoment().format('DD/MM/YYYY'));
+        }
+    });
+
+    document.getElementById('selectTypeChart').addEventListener('change', function () {
+        var selectedValue = this.value;
+        var datepickerInputs = document.querySelectorAll('.datepicker');
+
+        if (selectedValue === '4') {
+            datepickerInputs.forEach(function (input) {
+                input.classList.remove('hidden');
+            });
+        } else {
+            datepickerInputs.forEach(function (input) {
+                input.classList.add('hidden');
+            });
+        }
+    });
+
+    // Ban đầu thêm sự kiện ngăn chỉnh sửa
+    document.querySelectorAll('.datepicker').forEach(function (input) {
+        input.classList.add('hidden');
+    });
+
+
+
+</script>
+<h2>Chartcontrol</h2>
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+<script>
+  const ctx = document.getElementById('myChart');
+
+   var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: @Html.Raw(Json.Encode(Model))
+    });
+</script>

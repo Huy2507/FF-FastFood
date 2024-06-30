@@ -1,0 +1,59 @@
+﻿@model IEnumerable<FF_Fastfood.Models.OrderDeliveryViewModel>
+
+@{
+    ViewBag.Title = "Delivery";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+    ViewBag.PageName = "Delivery";
+    ViewBag.url = "Index";
+    ViewBag.SearchController = "Admin";
+    ViewBag.SearchView = "Delivery";
+}
+
+<div class="container">
+    <div class="order-list">
+        <h2>Đơn hàng của tôi</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>Địa chỉ giao hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.OrderId</td>
+                            <td>@order.CustomerName</td>
+                            <td>@order.DeliveryAddress</td>
+                            <td>@order.PhoneNumber</td>
+                            <td>@order.Status</td>
+                            <td>
+                                <a href="@Url.Action("DeliveryOrderDetail", "Admin", new { id = order.OrderId })" class="btn btn-sm btn-info">Chi tiết</a>
+                                @if (order.Status == "Waiting")
+                                {
+                                    <form action="@Url.Action("StartDelivery", "Admin")" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@order.OrderId" />
+                                        <button type="submit" class="btn btn-sm btn-primary">Giao hàng</button>
+                                    </form>
+                                }
+                                else if (order.Status == "On The Way")
+                                {
+                                    <form action="@Url.Action("CompleteDelivery", "Admin")" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@order.OrderId" />
+                                        <button type="submit" class="btn btn-sm btn-success">Hoàn Thành</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

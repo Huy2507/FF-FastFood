@@ -12,7 +12,7 @@ namespace FF_Fastfood.Controllers
     public class AccountController : Controller
     {
         private Services.EmailService emailService = new Services.EmailService();
-        FF_FastFoodEntities db = new FF_FastFoodEntities();
+        FF_FastFoodEntities1 db = new FF_FastFoodEntities1();
 
         // GET: Account/Login
         [HttpGet]

@@ -1,0 +1,161 @@
+﻿@model FF_Fastfood.Models.Food
+@{
+    ViewBag.Title = "MenuDetails";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+
+}
+@{ ViewBag.PageName = "MenuDetails";}
+
+@{ ViewBag.SearchController = "Admin";
+    ViewBag.SearchView = "MenuDetails";}
+@{
+    { ViewBag.url = @Url.Action("AddFood", "Admin"); }
+
+    int ID = ViewBag.Id + 1;
+    string Name = null;
+    string description = null;
+    decimal price = 1;
+    int? Category_ID = null;
+
+    string Img_url = null;
+    string seo_title = null;
+    string seo_description = null;
+    string seo_keywords = null;
+    string slug = null;
+    DateTime? created_at = ViewBag.TimeNow;
+    DateTime? update_at = ViewBag.TimeNow;
+    if (Model != null)
+    {
+        ViewBag.DeleteUrl = @Url.Action("DeleteFood", "Admin");
+        ViewBag.url = @Url.Action("UpdateFood", "Admin");
+        ID = Model.food_id;
+        Name = Model.name;
+        description = Model.description;
+        price = Model.price;
+        Category_ID = Model.category_id;
+
+        Img_url = Model.image_url;
+        seo_title = Model.seo_title;
+        seo_description = Model.seo_description;
+        seo_keywords = Model.seo_keywords;
+        slug = Model.slug;
+        created_at = Model.created_at;
+        update_at = Model.updated_at;
+    }
+}
+<h2 class="details_title">Menu Details</h2>
+
+<form id="formFoodDetail" class="form-control" action="@ViewBag.url" method="post">
+    <ul class="listFunction form-group container">
+        <li id="li_ID" class="form-group container list-item">
+            <label id="label_ID" class="details_title">Food ID <span>*</span></label>
+            <div>
+                <input id="IDText" class="form-control form-entered" name="food_id" value="@ID" readonly />
+            </div>
+        </li>
+        <li id="li_Name" class="form-group container list-item">
+            <label id="label_Name" class="details_title">Food Name <span>*</span></label>
+            <div>
+                <input id="NameText" type="text" autofocus placeholder="Please enter Name for Food" name="name" maxlength="255" class="form-control form-entered" value="@Name" />
+            </div>
+        </li>
+        <li id="li_Description" class="form-group container list-item">
+            <label id="label_ID" class="details_title">Food Description <span>*</span></label>
+            <div>
+                <input name="description" id="DescripText" type="text" autofocus placeholder="Please enter Description for Food" class="form-control form-entered" value="@description" />
+            </div>
+        </li>
+        <li id="li_Price" class="form-group container list-item">
+            <label id="label_Price" class="details_title form-entered">Food Price <span>*</span></label>
+            <div>
+                <input name="price" id="DescripText" type="number" autofocus placeholder="Please enter Price for Food" class="form-control form-entered" value="@price" />
+            </div>
+        </li>
+        <li id="li_Category" class="form-group container list-item">
+            <label id="label_Price" class="details_title form-entered">Food Type <span>*</span></label>
+            <div>
+                <select name="category_id" id="CategorySelect" value="@Category_ID" class="details_title form-entered">
+                    @Html.Action("addSelecFood", "Admin", new{id= @Category_ID })
+                </select>
+            </div>
+            <div id="li_Img" style="margin-left:1rem">
+                <label id="label_Img" class="details_title form-entered">Link Image <span>*</span></label>
+                <div>
+                    <input id="imageFile" type="file" name="image_file" accept="image/gif, image/jpeg, image/png" />
+                    <input type="hidden" name="image_url" id="imageUrl" value="@Img_url" />
+                </div>
+            </div>
+            <script>
+                document.getElementById('imageFile').addEventListener('change', function () {
+                    var imageUrlInput = document.querySelector('#imageUrl');
+                    var imageImport = document.querySelector('#imageFile');
+                    imageUrlInput.setAttribute("name", " ");
+                    imageImport.setAttribute("name", "image_url");
+                });
+            </script>
+        </li>
+
+        <li id="li_SEOtitle" class="form-group container list-item">
+            <label id="label_SEOtitle" class="details_title">SEO Title <span>*</span></label>
+            <div>
+                <input name="seo_title" id="SEOTitle_Text" type="text" autofocus placeholder="Please enter SEO Title for Food" class="form-control form-entered" value="@seo_title" />
+            </div>
+        </li>
+
+        <li id="li_SEOdescription" class="form-group container list-item">
+            <label id="label_SEOdescription" class="details_title">SEO Description <span>*</span></label>
+            <div>
+                <input name="seo_description" id="SEODescription_Text" type="text" autofocus placeholder="Please enter SEO Description for Food" class="form-control form-entered" value="@seo_description" />
+            </div>
+        </li>
+
+        <li id="li_SEOkeywords" class="form-group container list-item">
+            <label id="label_SEOkeywords" class="details_title">SEO Keywords <span>*</span></label>
+            <div>
+                <input name="seo_keywords" id="SEOkeywords_Text" type="text" autofocus placeholder="Please enter SEO keywords for Food" class="form-control form-entered" value="@seo_keywords" />
+            </div>
+        </li>
+
+        <li id="li_Slug" class="form-group container list-item">
+            <label id="label_Slug" class="details_title">Slug <span>*</span></label>
+            <div>
+                <input name="slug" id="Slug_Text" type="text" autofocus placeholder="Please enter Slug keywords for Food" class="form-control form-entered" value="@slug" />
+            </div>
+        </li>
+
+        <li id="DateCreate" class="form-group container list-item">
+            <label id="label_dateCreate" class="details_title">Date Create<span>*</span></label>
+            <div>
+                <input name="created_at" id="DateCreate_Text" type="text" autofocus placeholder="Please enter Slug keywords for Food" class="form-control form-entered" value="@created_at" readonly />
+            </div>
+        </li>
+        <li id="DateUpdate" class="form-group container list-item">
+            <label id="label_dateUpdate" class="details_title">Date Update<span>*</span></label>
+            <div>
+                <input name="updated_at" id="DateUpdate_Text" type="text" autofocus placeholder="Please enter Slug keywords for Food" class="form-control form-entered" value="@update_at" readonly />
+            </div>
+        </li>
+        <li id="btnGroup" class="form-group container list-item">
+
+            <button class="btn btn-success" id="Submit1" type="submit" value="submit">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAVhJREFUSEvt1D0vBFEUxvH/E6WGKPQUCt/Ae3wMpUKiESES34Bik+00KETjEyhURCIKhYaEiERBQohSebjJmWQy2dm5O2ZtYaaal3vPL+e5947o0aUeudTwnyVfR11HXSoBMwt75wA4knTcqkjlm8vRPWAR+ALmJV1m8UrhDBqsT4evuw3ve6cJOi3ppqtRm9kOsOxI6DQXDWMqiTqDvgNzeZ0m3beFzawfWAG2JVmryMysCaz6tw9gRtJt0XHIhc2sDzgJmwPYlbSULZZBQ6dTku6K0LZRm9kocAUMeKGmpLWkqJk1gHV/fvM1vY9BC9fYzMaBc2DQCzYkbZjZFrDp715/kpmQ9BiLFsJhgONnwJAXPg2bx+9fgFlJD52gUbDjY0DAh1PAMzAp6alTNBp2fAS4cPxXaEdwCj8EFsp2GnWOy0QYO6eSP1cslh5Xw2VSKzXn/0X9DfsFZx/nKoU6AAAAAElFTkSuQmCC" />
+                Save change
+            </button>
+            @if (Model != null)
+            {
+                <a class="btn btn-danger" href="@Url.Action( "DeleteFood", "Admin",new { id = Model.food_id })">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAVhJREFUSEvt1D0vBFEUxvH/E6WGKPQUCt/Ae3wMpUKiESES34Bik+00KETjEyhURCIKhYaEiERBQohSebjJmWQy2dm5O2ZtYaaal3vPL+e5947o0aUeudTwnyVfR11HXSoBMwt75wA4knTcqkjlm8vRPWAR+ALmJV1m8UrhDBqsT4evuw3ve6cJOi3ppqtRm9kOsOxI6DQXDWMqiTqDvgNzeZ0m3beFzawfWAG2JVmryMysCaz6tw9gRtJt0XHIhc2sDzgJmwPYlbSULZZBQ6dTku6K0LZRm9kocAUMeKGmpLWkqJk1gHV/fvM1vY9BC9fYzMaBc2DQCzYkbZjZFrDp715/kpmQ9BiLFsJhgONnwJAXPg2bx+9fgFlJD52gUbDjY0DAh1PAMzAp6alTNBp2fAS4cPxXaEdwCj8EFsp2GnWOy0QYO6eSP1cslh5Xw2VSKzXn/0X9DfsFZx/nKoU6AAAAAElFTkSuQmCC" />
+                    Delete
+                </a>
+            }
+
+            <a class="btn btn-primary " id="Cancel" href="~/Admin/Index">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAANJJREFUSEvtlkEKwjAQRefdxIXgNewtdOdN9Chd6gV0qXs9gSB4EkcCKbSFpg6JBku6K0zmZf78wEcyfWTiSgesqjMR2fjL1CLi/pcRl3uJyA049nv0wQ5y9kWVh24jwM3RPbBu9/kV2DHnwKOBfwwGzH5Q1Y6CwOX/wH6KMcPVwDPpxKq6E5Exw1VO1mmALU8r6cTZwMVcA9Knd3W2HRdwSIFpvOOy47LjtgJJXG0x1UDtAribM1ck+ACsQvH2G4H+CpyCgT5yKtNxc1Y2dQ8UvwHTWQwukw7TTQAAAABJRU5ErkJggg==" />
+                Cancel
+            </a>
+            @*@Html.ActionLink("Cancel","Index","Admin", new {@class="btn btn-info"});*@
+        </li>
+    </ul>
+</form>
+
+

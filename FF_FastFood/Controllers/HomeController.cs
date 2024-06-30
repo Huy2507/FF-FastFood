@@ -7,17 +7,20 @@ using static System.Collections.Specialized.BitVector32;
 using System.Web.UI.WebControls;
 using FF_Fastfood.Models;
 using System.Data.Entity;
+using PagedList;
 
 namespace FF_Fastfood.Controllers
 {
     public class HomeController : Controller
     {
-        FF_FastFoodEntities db = new FF_FastFoodEntities();
-        public ActionResult Index()
+
+        FF_FastFoodEntities1 db = new FF_FastFoodEntities1();
+        public ActionResult Index(int? pageCategory)
+
         {
-            
+            int pageSize = 4; // Số lượng item hiển thị trên mỗi trang
+            int pageNumberCategory = (pageCategory ?? 1); // Trang hiện tại của categories, mặc định là 1
             List<Banner> bannerList = db.Banners.ToList();
-            List<Category> categoryList = db.Categories.ToList();
             var popularFoodsQuery = db.Order_Items
                                     .GroupBy(oi => new {
                                         oi.Food.food_id,
@@ -74,10 +77,19 @@ namespace FF_Fastfood.Controllers
             var viewmodel = new HomeViewModel
             {
                 banners = bannerList,
-                categories = categoryList,
+                categories = db.Categories.OrderBy(c => c.category_name).ToPagedList(pageNumberCategory, pageSize),
                 foods = popularFoods
             };
             return View(viewmodel);
         }
+        public ActionResult CategoryPage(int? pageCategory)
+        {
+            int pageSize = 4; // Số lượng item hiển thị trên mỗi trang
+            int pageNumberCategory = (pageCategory ?? 1); // Trang hiện tại của categories, mặc định là 1
+            var categories = db.Categories.OrderBy(c => c.category_name).ToPagedList(pageNumberCategory, pageSize);
+
+            return PartialView("_PartialCategory", categories);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace FF_Fastfood.Models
     public class HomeViewModel
     {
         public List<Banner> banners { get; set; }
-        public List<Category> categories { get; set; }
+        public IPagedList<Category> categories { get; set; }
         public List<Food> foods { get; set; }
     }
 }
